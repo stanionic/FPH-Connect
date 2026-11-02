@@ -1,0 +1,22 @@
+# Secrets et configuration locale : .env porte le mot de passe Postgres et le compte admin initial.
+.env
+certs/
+
+# Bases et donnees locales
+*.db
+*.db-journal
+storage/
+captures/
+captures-*/
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Fichiers de travail jetables (scripts/rapports temporaires, logs, captures racine)
+.tmp_*
+*.log
+captures-*.png

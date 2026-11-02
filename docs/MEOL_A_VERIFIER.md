@@ -1,0 +1,502 @@
+# MEOL importés — points à vérifier
+
+Généré par `python scripts/import_meols.py import <nouveau.pdf> --review <ce fichier>`.
+Rien ici n'est une erreur : ce sont les **déductions** faites à partir du registre, à
+confirmer par un humain. Une ligne « département à confirmer » n'est visible que du niveau
+national tant qu'elle n'est pas tranchée.
+
+## Département à confirmer (84)
+
+- Action Chrétienne pour une nouvelle Haïti (ACCHRENOUH) — département non déduit
+- Alliance des Femmes Chrétiennes — département non déduit
+- Campus pour Christ-Haïti – international — département non déduit
+- Centre Visionnaire Sans Frontière — département non déduit
+- Communauté des Leaders Évangéliques pour le Sauvetage d'Haïti — département non déduit
+- Concile des Eglises Evangéliques d'Haïti (CEEH) — département non déduit
+- Conférence Nationale des Evêques Protestantes d'Haïti — département non déduit
+- Connexion des Eglises Protestantes pour la délivrance d'Haïti (CEPDH) — département non déduit
+- Conseil Nationale des Missions Evangéliques (CONAMISE) — département non déduit
+- Eglise Baptiste de l'Esperance — département non déduit
+- Eglise Baptiste de la Grace — département non déduit
+- Eglise Chrétienne de Jésus Christ — département non déduit
+- Eglise Chrétienne des Rachetés d'Haïti — département non déduit
+- Eglise Communauté Evangélique d'Haïti — département non déduit
+- Eglise de Dieu Ambassadeur d'Haïti — département non déduit
+- Eglise de Dieu Bethléem International — département non déduit
+- Eglise de Dieu de Compassion — département non déduit
+- Eglise de Dieu de la réforme — département non déduit
+- Eglise de Dieu le bon combat — département non déduit
+- Eglise EBM (Mission Biblique Évangélique) — département non déduit
+- Eglise Evangélique des Rachetés de Jésus- Christ — département non déduit
+- Eglise les Elus de Dieu — département non déduit
+- Fédération des Eglises Evangéliques pour le Développement du département de l'Artibonite (FEEDDA) — département déduit du nom, pas de commune : name
+- Fédération des Pasteurs pour la Réconciliation des gens d'Haïti — département non déduit
+- FEPREGHA — département non déduit
+- Fondation Chrétienne pour l'encadrement des Démunis — département non déduit
+- Hope For Bethesda — département non déduit
+- League des Pasteurs de Pointe a Raquette — département non déduit
+- Ligue des pasteurs de la Victoire — département non déduit
+- Ligue des Pasteurs des Nippes — département déduit du nom, pas de commune : name
+- Ligue des Pasteurs du Nord — département déduit du nom, pas de commune : name
+- Ligue des Pasteurs du Nord-Ouest — département déduit du nom, pas de commune : name
+- Ligue des Pasteurs du Sud — département déduit du nom, pas de commune : name
+- Mission Africaine Méthodiste Episcopale (AME) — département non déduit
+- Mission Arbre de Vie — département non déduit
+- Mission Assemblée des Citoyens du Royaume de Dieu — département non déduit
+- Mission Bon Berger — département non déduit
+- Mission Chrétienne des Rachetés — département non déduit
+- Mission Croisade du Salut d'Haïti — département non déduit
+- Mission Croisade Évangélique Mondiale — département non déduit
+- Mission Croisade Evangélique. Internationale — département non déduit
+- Mission de l'Amour Biblique — département non déduit
+- Mission des Enfants de Nazareth — département non déduit
+- Mission du Ministère Evangélique Baptiste Action Chrétienne — département non déduit
+- Mission Eglise de Dieu de la Nouvelle Alliance — département non déduit
+- Mission Eglise de Dieu de la Nouvelle Vision — département non déduit
+- Mission Eglise de Dieu Grace Abondante — département non déduit
+- Mission Eglise de Dieu Jésus est le chemin de la foi des apôtres — département non déduit
+- Mission Eglise de Dieu Maranatha — département non déduit
+- Mission Eglise de Dieu Maranatha d'Haïti — département non déduit
+- Mission Eglise de Dieu Pentecôtiste Libre d'Haïti — département non déduit
+- Mission Eglise de Dieu Tabernacle de la Délivrance — département non déduit
+- Mission Eglise de la Christianisation d'Haïti — département non déduit
+- Mission Eglise du St-Esprit — département non déduit
+- Mission Eglise Évangélique Vallée de l'Espoir — département non déduit
+- Mission Eglise Foi Apostolique d'Haïti — département non déduit
+- Mission Eglise Indigène d'Haïti — département non déduit
+- Mission Eglise Ste-Cité — département non déduit
+- Mission Eglise Troupeau de Jésus-Christ (METROJESUS) — département non déduit
+- Mission Eglise Wesleyenne d'Haïti — département non déduit
+- Mission Évangélique Betsaleel d'Haïti — département non déduit
+- Mission Evangélique d'Haïti — département non déduit
+- Mission Evangélique Du Christ D'Haïti — département non déduit
+- Mission Evangélique Jésus Fondement d'Haïti — département non déduit
+- Mission Fils de Dieu — département déduit du nom, pas de commune : address
+- Mission Fondation Chrétienne d'Haïti — département non déduit
+- Mission Kernel d'Haïti — département déduit du nom, pas de commune : address
+- Mission la Bergerie de Jésus-Christ — département non déduit
+- Mission Sainte Eglise — département non déduit
+- Mission Vision Action Haiti — département non déduit
+- Mouvement citoyen Chrétien — département non déduit
+- Mouvement Missionnaire Mondial — département non déduit
+- Organisation Humanitaire pour la Sauvegarde des Etres — département non déduit
+- Plateforme des Eglises Evangéliques pour le Développement d'Haïti (PLEEDH) — département non déduit
+- RENAPADD — département non déduit
+- SKDE / LEPH — département non déduit
+- Tabernacle de la Foi Ministère Haïtienne — adresse hors Haïti : aucun département haïtien ne s'applique
+- Tabernacle Evangélique Bethel — département non déduit
+- Union Chrétienne des Haïtiens — département non déduit
+- Union des Chrétiens Évangéliques d'Haïti — département non déduit
+- Union des Chrétiens pour le Développement d'Haïti — département non déduit
+- Union des Universités Privés — département non déduit
+- Université INUKA — département non déduit
+- VIHAMO — département non déduit
+
+## Entrée raccordée après un saut de page (11)
+
+- Chapelle d'Adoration Néhémie de Jérusalem — raccordé page 3 : colonne « nom » vide
+- Eglise Chrétienne de Jésus Christ — raccordé page 5 : colonne « nom » vide
+- Eglise de Dieu Hallel Vallée de Bénédiction — raccordé page 6 : ordre alphabétique brisé ('Eglise de Dieu Hallel Vallée de' -> 'Bénédiction')
+- Eglise Evangélique International — raccordé page 7 : colonne « nom » vide
+- Ligue des Pasteurs du Nord — raccordé page 10 : colonne « nom » vide
+- Mission Ambassadeur de Christ en Haïti — raccordé page 11 : colonne « nom » vide
+- Mission Baptiste New Convenent d'Haiti — raccordé page 12 : colonne « nom » vide
+- Mission Croisade Évangélique Mondiale — raccordé page 13 : colonne « nom » vide
+- Mission des Eglises Evangéliques Baptiste Patmos D'Haïti — raccordé page 14 : e-mail coupé à la frontière de page, recollé en pastoricardostgelus@gmail.com
+- Mission Eglise de Dieu Pentecôtiste Libre d'Haïti — raccordé page 16 : ordre alphabétique brisé ('Mission Eglise de Dieu Pentecôtiste Libre' -> "d'Haïti")
+- Organisation d'Aide au Développement (ORADE) — raccordé page 21 : colonne « nom » vide
+
+## Hiérarchie des responsables déduite (171)
+
+- Ambasade Kreyol Elev Ak Etidyan (ANBAKE) — 2 responsables nommés, le premier est tenu pour principal
+- Association de la Ligue des Pasteurs de Maïssade — 4 responsables nommés, le premier est tenu pour principal
+- Association de Ralliement des Bienfaisance Internationale — 2 responsables nommés, le premier est tenu pour principal
+- Association des Evangélistes Haïtiens (AEH) — 2 responsables nommés, le premier est tenu pour principal
+- Association des jeunes de l'ouest pour l'avancement Social — 2 responsables nommés, le premier est tenu pour principal
+- Association des Juristes Chrétiens d'Haïti (A.J.C.H) — 4 responsables nommés, le premier est tenu pour principal
+- Association des ouvriers Évangéliques d'Haïti (AOEH) — 2 responsables nommés, le premier est tenu pour principal
+- Association Mères en Prière d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- Association Sociale des Parents Haïtiens (ASSOCPAH) — 4 responsables nommés, le premier est tenu pour principal
+- Baptiste Tabernacle Sacerdotal de la Grâce — 4 responsables nommés, le premier est tenu pour principal
+- Béthel Assemblée Chrétienne — 2 responsables nommés, le premier est tenu pour principal
+- Centre Visionnaire Sans Frontière — aucun responsable nommé dans le registre
+- Chapelle d'Adoration Néhémie de Jérusalem — 2 responsables nommés, le premier est tenu pour principal
+- Coalition des Pasteurs pour la Libération des Églises d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- Communauté des leaders Evangéliques des pasteurs haïtiens (CLEPH) — 2 responsables nommés, le premier est tenu pour principal
+- Communauté des Leaders Évangéliques pour le Sauvetage d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- CONAPEDHA — 4 responsables nommés, le premier est tenu pour principal
+- Confédération des Leaders Evangéliques pour le Développement Urbain et Rural (COLEDUR) — 2 responsables nommés, le premier est tenu pour principal
+- Confraternité Missionnaire Baptiste d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Connexion des Eglises Baptistes haïtiennes pour la mission Intégrale (CEBAHMI) — 2 responsables nommés, le premier est tenu pour principal
+- Connexion des Églises pour Évangéliser Haïti (CEEH) — 4 responsables nommés, le premier est tenu pour principal
+- Conseil Nationale des Missions Evangéliques (CONAMISE) — 2 responsables nommés, le premier est tenu pour principal
+- Deuxième Eglise Baptiste de Port-au- Prince — aucun responsable nommé dans le registre
+- Development For Freedom International (DFI) — 3 responsables nommés, le premier est tenu pour principal
+- Eglise Assemblée de Jésus Christ — 2 responsables nommés, le premier est tenu pour principal
+- Eglise Baptiste du 3ème Millénaire — 3 responsables nommés, le premier est tenu pour principal
+- Eglise Chrétienne de Jésus Christ — 4 responsables nommés, le premier est tenu pour principal
+- Eglise Chrétienne Héritier du Grand Roi — 3 responsables nommés, le premier est tenu pour principal
+- Eglise Communauté Evangélique d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Eglise de Dieu Ambassadeur d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Eglise de Dieu de la réforme — 4 responsables nommés, le premier est tenu pour principal
+- Eglise de Dieu Hallel Vallée de Bénédiction — 3 responsables nommés, le premier est tenu pour principal
+- Eglise de Dieu le bon combat — 3 responsables nommés, le premier est tenu pour principal
+- Eglise de Dieu Nazareth d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Eglise de Dieu Vallée de Bénédiction — 3 responsables nommés, le premier est tenu pour principal
+- Eglise EBM (Mission Biblique Évangélique) — 4 responsables nommés, le premier est tenu pour principal
+- Eglise Evangélique Baptiste Bethlehem — 2 responsables nommés, le premier est tenu pour principal
+- Eglise Evangélique du Mont des Oliviers — 4 responsables nommés, le premier est tenu pour principal
+- Eglise Evangélique International — 2 responsables nommés, le premier est tenu pour principal
+- Eglise Universelle du Royaume de Jésus Christ — 2 responsables nommés, le premier est tenu pour principal
+- El Shaddai Ministries International — 2 responsables nommés, le premier est tenu pour principal
+- Famille Tabernacle de Louange / Ministère Shabach International — 2 responsables nommés, le premier est tenu pour principal
+- Fédération des Pasteurs pour la Réconciliation des gens d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- FEPREGHA — aucun responsable nommé dans le registre
+- Fondation Béthanie d'Haïti (FBH) — 2 responsables nommés, le premier est tenu pour principal
+- Fondation Matana — 4 responsables nommés, le premier est tenu pour principal
+- Fondation Samarie d'Aide aux Enfants d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- HAVIDEC — 2 responsables nommés, le premier est tenu pour principal
+- Heaven in Me international — 2 responsables nommés, le premier est tenu pour principal
+- Hope For Bethesda — 2 responsables nommés, le premier est tenu pour principal
+- Hope International — 2 responsables nommés, le premier est tenu pour principal
+- International police Chapelain — 2 responsables nommés, le premier est tenu pour principal
+- La Mission Tabernacle Evangélique de Louange d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- League des Pasteurs de Pointe a Raquette — aucun responsable nommé dans le registre
+- Ligue de Pasteurs Progressifs de Carrefour-feuilles — 3 responsables nommés, le premier est tenu pour principal
+- Ligue des Pasteurs de Cité Soleil — 2 responsables nommés, le premier est tenu pour principal
+- Ligue des Pasteurs de la grande d'Anse Jérémie — 2 responsables nommés, le premier est tenu pour principal
+- Ligue des pasteurs de la Victoire — 2 responsables nommés, le premier est tenu pour principal
+- Ligue des pasteurs de Petit Goave — aucun responsable nommé dans le registre
+- Ligue des Pasteurs de Saint-Marc — 2 responsables nommés, le premier est tenu pour principal
+- Ligue des pasteurs des Varreux — 4 responsables nommés, le premier est tenu pour principal
+- Ligue des Pasteurs du Cul de Sac — 2 responsables nommés, le premier est tenu pour principal
+- Ligue des Pasteurs du Nord — 2 responsables nommés, le premier est tenu pour principal
+- Ligue des Pasteurs du nord Est — 2 responsables nommés, le premier est tenu pour principal
+- Ligue des Pasteurs du Sud — 2 responsables nommés, le premier est tenu pour principal
+- Ligue des Pasteurs du Sud'Est — 2 responsables nommés, le premier est tenu pour principal
+- Ligues de Pasteur de Gressier — 2 responsables nommés, le premier est tenu pour principal
+- Ministère Chrétien pour le Développement Spirituel, Social et Economique (MICDESSE) — 4 responsables nommés, le premier est tenu pour principal
+- Ministère Me voici — 2 responsables nommés, le premier est tenu pour principal
+- Mission Alliance Evangélique Internationale (MAEI) — 2 responsables nommés, le premier est tenu pour principal
+- Mission Ambassadeur de Christ en Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Apostolique Du Tabernacle de la Foi — 2 responsables nommés, le premier est tenu pour principal
+- Mission Assemblée Chrétienne de Zamar — 2 responsables nommés, le premier est tenu pour principal
+- Mission Assemblée Chrétienne Unie d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Assemblée de Dieu Eben-Ezer d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Assemblée de la Grace — 2 responsables nommés, le premier est tenu pour principal
+- Mission Assemblée des Citoyens du Royaume de Dieu — aucun responsable nommé dans le registre
+- Mission Baptiste de la Bible Internationale — 2 responsables nommés, le premier est tenu pour principal
+- Mission Baptiste de la Grace d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Baptiste New Convenent d'Haiti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Baptiste Source de Paix — 4 responsables nommés, le premier est tenu pour principal
+- Mission Bon Berger — aucun responsable nommé dans le registre
+- Mission Chrétienne d'Haïti — 3 responsables nommés, le premier est tenu pour principal
+- Mission Chrétienne des portes ouvertes — 2 responsables nommés, le premier est tenu pour principal
+- Mission Chrétienne des Rachetés — 2 responsables nommés, le premier est tenu pour principal
+- Mission Chrétienne El Shaddai — 2 responsables nommés, le premier est tenu pour principal
+- Mission Communion des Eglises d'Emmaüs — 2 responsables nommés, le premier est tenu pour principal
+- Mission Croisade du Salut d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Croisade Évangélique Mondiale — 2 responsables nommés, le premier est tenu pour principal
+- Mission d'Union Foi Apostolique d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission de l'Eglise Cœur Restauré d'Haïti — 3 responsables nommés, le premier est tenu pour principal
+- Mission de L'Eglise de Dieu Maison de Louange d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission de l'Eglise des Combattants pour Christ — 3 responsables nommés, le premier est tenu pour principal
+- Mission de l'Eglise Méthodiste d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission de la Renaissance Internationale — 2 responsables nommés, le premier est tenu pour principal
+- Mission de la Renaissance Internationale — 2 responsables nommés, le premier est tenu pour principal
+- Mission des Combattants sur le Chemin de la Croix — 4 responsables nommés, le premier est tenu pour principal
+- Mission des Eglises Evangéliques Baptiste Patmos D'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission des Eglises Évangéliques Universelles du dernier temps — 3 responsables nommés, le premier est tenu pour principal
+- Mission des Eglises Réformées d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission des Elus de Dieu — 2 responsables nommés, le premier est tenu pour principal
+- Mission du Ministère Evangélique Baptiste Action Chrétienne — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Baptiste Chrétienne — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Chrétienne Emmaüs d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Chrétienne Reformée d'Haïti (MECRH) — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu d'Unité Chrétienne d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise De Dieu de la Foi Apostolique d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu de la Nouvelle Vision — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu des Oints — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu en Christ — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu Grâce et Paix — 3 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu la Main du Christ — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu Maranatha d'Haïti — 3 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu Nazareth d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu par la Foi en Christ — 3 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu Pentecôtiste Libre d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu Philadelphie reformée — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu Sabaoth d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Dieu Union des Chrétiens — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise de Jésus-Christ de Pentecôte — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Évangélique Ambassadeur pour Christ — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Évangélique Baptiste de Sarthe — 4 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Évangélique Baptiste Philadelphie — 4 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Evangélique de la restauration en Haïti (MEERH) — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Evangélique des gagneurs d'âme d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Évangélique Vallée de l'Espoir — 4 responsables nommés, le premier est tenu pour principal
+- Mission Eglise les amis de l'Epoux d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Méthodiste Libre à l'intérieure d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Eglise Refuge des Pêcheurs — 4 responsables nommés, le premier est tenu pour principal
+- Mission Evangélique Baptiste de la Fraternité — 2 responsables nommés, le premier est tenu pour principal
+- Mission Evangélique Baptiste Gethsémani d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Évangélique Betsaleel d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- Mission Evangélique Chrétienne d'Haïti (MECH) — 2 responsables nommés, le premier est tenu pour principal
+- Mission Evangélique et Développement social — 3 responsables nommés, le premier est tenu pour principal
+- Mission Evangélique Grace Abondante — 2 responsables nommés, le premier est tenu pour principal
+- Mission Evangélique Jésus Fondement d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Evangélique les Appelés de Dieu (MEVAD) — 2 responsables nommés, le premier est tenu pour principal
+- Mission Evangélique Mondiale de la Bonne Semence — 2 responsables nommés, le premier est tenu pour principal
+- Mission Evangélique par la Foi d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Grace Divine Haiti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Nouvelle Eglise Evangélique Baptiste d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Mission Pentecostale Soldats de Jésus — 2 responsables nommés, le premier est tenu pour principal
+- Mission Première Eglise Evangélique Interdenominationnelle — 2 responsables nommés, le premier est tenu pour principal
+- Mission Roc Solide — 2 responsables nommés, le premier est tenu pour principal
+- Mission Sainte Cite Nouvelle Jérusalem — 3 responsables nommés, le premier est tenu pour principal
+- Mission Sainte Eglise — aucun responsable nommé dans le registre
+- Mission Union Chrétienne des haïtiens — 2 responsables nommés, le premier est tenu pour principal
+- Mission Vision Action Haiti — 2 responsables nommés, le premier est tenu pour principal
+- Mouvement citoyen Chrétien — 2 responsables nommés, le premier est tenu pour principal
+- Mouvement Missionnaire Mondial — 2 responsables nommés, le premier est tenu pour principal
+- Orchestre Evangélique la Petite Trompette d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- Organisation d'Aide au Développement (ORADE) — 3 responsables nommés, le premier est tenu pour principal
+- Organisation des leaders des Pasteurs de cabaret (OLEC) — 2 responsables nommés, le premier est tenu pour principal
+- Organisation des Missions Evangéliques Communion Chrétienne d'Haïti — 2 responsables nommés, le premier est tenu pour principal
+- Organisation Flambeau Céleste pour le Développement Intégral de l'Etre Humain — 4 responsables nommés, le premier est tenu pour principal
+- Organisation Humanitaire pour la Sauvegarde des Etres — 3 responsables nommés, le premier est tenu pour principal
+- Organisation Messager de Vie Internationale — 4 responsables nommés, le premier est tenu pour principal
+- Organisation pour le Développement Local Avisé (ODELA) — 4 responsables nommés, le premier est tenu pour principal
+- Organisation pour le Renforcement Holistique des Familles Vulnérables (OREHFAV) — 4 responsables nommés, le premier est tenu pour principal
+- Organisation Socio-Spirituelle Jésus est la Solution — 4 responsables nommés, le premier est tenu pour principal
+- Pensée de la Théologie — 3 responsables nommés, le premier est tenu pour principal
+- Première Église Baptiste de Port-au-Prince — aucun responsable nommé dans le registre
+- Programme d'Action des Chrétiens pour l'Évangélisation et le Développement — 3 responsables nommés, le premier est tenu pour principal
+- Radio VIHAMO — 4 responsables nommés, le premier est tenu pour principal
+- RAISON — 2 responsables nommés, le premier est tenu pour principal
+- Solidarité Chrétienne — 4 responsables nommés, le premier est tenu pour principal
+- Tabernacle de la Foi Ministère Haïtienne — 2 responsables nommés, le premier est tenu pour principal
+- Union des Chrétiens pour le Développement d'Haïti — 4 responsables nommés, le premier est tenu pour principal
+- Union des Pêcheurs d'âmes de l'évangélisation pour le Ministère — 2 responsables nommés, le premier est tenu pour principal
+- Union Evangélique Baptiste d'Haïti (UEBH) — 2 responsables nommés, le premier est tenu pour principal
+- Wayom Timoun — 2 responsables nommés, le premier est tenu pour principal
+
+## Contacts non enregistrés (217)
+
+- Alliance des Eglises Protestantes pour le Développement Intégral d'Haïti (ADEPDIH) — autres téléphones : 3676-6977
+- Ambasade Kreyol Elev Ak Etidyan (ANBAKE) — autres téléphones : 38605102
+- Association de la Ligue des Pasteurs de Maïssade — autres téléphones : 4012-1023, 3761-5251, 3392-8642
+- Association de Ralliement des Bienfaisance Internationale — autres e-mails : jeanthomas965@yahoo.fr ; autres téléphones : 47417620
+- Association des Evangélistes Haïtiens (AEH) — autres téléphones : 48095958
+- Association des jeunes de l'ouest pour l'avancement Social — autres téléphones : 35702078, 34328998
+- Association des Juristes Chrétiens d'Haïti (A.J.C.H) — autres téléphones : 4291-0580, 4490-5827, 3797-0466
+- Association des Leaders Evangéliques d'Haïti (ALEHA) — autres téléphones : 3757-0731
+- Association des leaders Evangéliques des Gonaïves-Haïti (ALEGH) — autres téléphones : 3639-4232
+- Association des ouvriers Évangéliques d'Haïti (AOEH) — autres téléphones : 48420326
+- Association des Pasteurs de Bainet — autres téléphones : 33822323
+- Association des pasteurs de Miragoâne — autres e-mails : mochredin@yahoo.fr
+- Association des Pasteurs du Nord'Est — autres téléphones : 3781-1819, 32412694
+- Association Mères en Prière d'Haïti — autres e-mails : cvictorcodina@yahoo.com ; autres téléphones : 4898-6798, 3702-0757, 3170-6390
+- Association Sociale des Parents Haïtiens (ASSOCPAH) — autres téléphones : 3292-4509, 3777-4251, 3772-5313
+- Baptiste Tabernacle Sacerdotal de la Grâce — autres téléphones : 3402-8486, 4015-1965, 4075-4756
+- Béthel Assemblée Chrétienne — autres téléphones : 4076-9840, 3737-8140
+- Chapelle d'Adoration Néhémie de Jérusalem — autres téléphones : 4366-7944, (509)47669087
+- Coalition des Pasteurs pour la Libération des Églises d'Haïti — autres e-mails : nfred82@gmail.com ; autres téléphones : 3738-5141, 3624-2346, 3654-8484
+- Communauté Chrétienne Caraibeenne (WCC) — autres téléphones : 40004617
+- Communauté des leaders Evangéliques des pasteurs haïtiens (CLEPH) — autres téléphones : 37070528, 46484329
+- Communauté des Leaders Évangéliques pour le Sauvetage d'Haïti — autres téléphones : 3602-7121, 4811-1421, 4636-0240
+- Compassion Internationale — autres téléphones : 2813-1984
+- CONAPEDHA — autres téléphones : 3434-1631, 3316-3196
+- Concile des Eglises Evangéliques d'Haïti (CEEH) — autres e-mails : bildar@uebh.org
+- Connexion des Eglises Baptistes haïtiennes pour la mission Intégrale (CEBAHMI) — autres e-mails : denaudbert1080@yahoo.fr ; autres téléphones : 37114936
+- Connexion des Églises pour Évangéliser Haïti (CEEH) — autres téléphones : 3245-0080, 3200-3355, 3273-7801
+- Conseil Nationale des Missions Evangéliques (CONAMISE) — autres e-mails : jsmontinor@gmail.com ; autres téléphones : 3836-6649
+- Consentium pour le Renforcement de l'Education Chrétienne en Haïti (CRECH) — autres téléphones : 3744-6245
+- Development For Freedom International (DFI) — autres e-mails : josephvassa@gmail.com ; autres téléphones : 2811-0515, 3744-2476
+- Eglise Assemblée de Jésus Christ — autres téléphones : 42232800, 39174428
+- Eglise Baptiste de l'Esperance — autres téléphones : 38650827
+- Eglise Baptiste de l'Espoir — autres téléphones : 3798-7944
+- Eglise Baptiste des Cités — autres téléphones : 38538506
+- Eglise Baptiste du 3ème Millénaire — autres téléphones : 3647-6708, 4088-3997
+- Eglise Baptiste Solidarité du Cap-Haitien — autres téléphones : 32412099
+- Eglise Chrétienne de Jésus Christ — autres téléphones : 34307575
+- Eglise Chrétienne de l'Unité — autres téléphones : 38916170
+- Eglise Chrétienne Héritier du Grand Roi — autres téléphones : 47438685, 48289616
+- Eglise Chrétienne Interdénominationnelle Philadelphie — autres téléphones : 36721960
+- Eglise Communauté Evangélique d'Haïti — autres e-mails : ecehcomite@gmail.com ; autres téléphones : 36331947
+- Eglise de Dieu Ambassadeur d'Haïti — autres téléphones : 48053132
+- Eglise de Dieu de Compassion — autres e-mails : eglisededieudecompassion@yahoo.com
+- Eglise de Dieu de la réforme — autres téléphones : 3729-9991, 4868-3384, 3618-3442
+- Eglise de Dieu Hallel Vallée de Bénédiction — autres téléphones : 38745271
+- Eglise de Dieu le bon combat — autres téléphones : 37519015, 3605-7182, 49441121
+- Eglise de Dieu Nazareth d'Haïti — autres téléphones : 46935246
+- Eglise de Dieu Vallée de Bénédiction — autres téléphones : 4323-9983, 3726-1838
+- Eglise Eben-Ezer du Cap-Haïtien — autres téléphones : 3742-8626
+- Eglise EBM (Mission Biblique Évangélique) — autres téléphones : 31893184, 37940945, 44408027
+- Eglise Evangélique Baptiste Bethlehem — autres téléphones : 33397793
+- Eglise Evangélique des Ambassadeurs pour Christ — autres téléphones : 34495966
+- Eglise Evangélique Des Vainqueurs — autres téléphones : 3847-2765
+- Eglise Evangélique du Mont des Oliviers — autres téléphones : 48095958, 4239-0999, 37250424
+- Eglise Evangélique Foyer Chrétien — autres téléphones : 3757-0731
+- Eglise Universelle du Royaume de Jésus Christ — autres téléphones : 33232427, 36218688
+- El Shaddai Ministries International — autres téléphones : 38622669
+- Famille Tabernacle de Louange / Ministère Shabach International — autres téléphones : 36592429
+- Fédération des Eglises Evangéliques pour le Développement du département de l'Artibonite (FEEDDA) — autres téléphones : 32134255
+- Fédération des Pasteurs pour la Réconciliation des gens d'Haïti — autres téléphones : 36397634, 3716-2783, 37793047
+- Fondation Béthanie d'Haïti (FBH) — autres téléphones : 37608506
+- Fondation Samarie d'Aide aux Enfants d'Haïti — autres téléphones : 3402-8486, 3635-7791, 3746-8262
+- Force des Eglises Evangéliques pour le développement social (FOEEDES) — autres téléphones : 44197563
+- Groupe Réflexion pour un renouveau Socio-Spirituel aux Gonaïves (GRRESGO) — autres e-mails : christopie158@hotmail.com
+- HAVIDEC — autres téléphones : 37307997, 34557388
+- Heaven in Me international — autres téléphones : 36806690
+- Hope For Bethesda — autres téléphones : 49134175
+- Hope International — autres e-mails : pwilson@hopeinternational.org ; autres téléphones : 46585782
+- International police Chapelain — autres e-mails : edmond405@yahoo.fr ; autres téléphones : 4805-7820
+- La Mission Tabernacle Evangélique de Louange d'Haïti — autres téléphones : 38585621, 39910962
+- Ligue de Pasteurs Progressifs de Carrefour-feuilles — autres téléphones : 4323-9983, 3744-2218, 3633-1947
+- Ligue des Pasteurs de Cité Soleil — autres téléphones : 34054697, 40134519
+- Ligue des Pasteurs de L'Arcahaie — autres téléphones : 32648816
+- Ligue des Pasteurs de la grande d'Anse Jérémie — autres téléphones : 37074004
+- Ligue des pasteurs de la Victoire — autres téléphones : 37854251
+- Ligue des Pasteurs de Léogane — autres téléphones : 37076161, 37523680
+- Ligue des Pasteurs de Lilavois — autres téléphones : 3728-2009
+- Ligue des pasteurs des Varreux — autres e-mails : templierevens25@gmail.com ; autres téléphones : 34028461, 36938017, 46197384
+- Ligue des pasteurs du Cap-Haitien — autres téléphones : 32412099
+- Ligue des Pasteurs du Cul de Sac — autres téléphones : 48541562
+- Ligue des Pasteurs du nord Est — autres téléphones : 3714-5821
+- Ligue des Pasteurs du Sud — autres téléphones : 36302817
+- Ligue des Pasteurs du Sud'Est — autres téléphones : 36717357
+- Ligue des pasteurs et leaders de Bicentenaire (LIPALEB) — autres téléphones : 34759653
+- Ligues de Pasteur de Gressier — autres téléphones : 37276320, 46295315
+- Ministère Chrétien pour le Développement Spirituel, Social et Economique (MICDESSE) — autres téléphones : 3738-1779, 3704-5519, 3391-9469
+- Ministère Me voici — autres e-mails : francoismarieflorence61@gmail.com ; autres téléphones : 38885509
+- Mission Alliance Evangélique Internationale (MAEI) — autres téléphones : 40736839, 36575365
+- Mission Ambassadeur de Christ en Haïti — autres téléphones : 36943022
+- Mission Apostolique Du Tabernacle de la Foi — autres téléphones : 3743-6266
+- Mission Assemblée Chrétienne de Zamar — autres e-mails : conservejolicoeur@gmail.com ; autres téléphones : 43894746, 48382811, 40259213
+- Mission Assemblée Chrétienne Unie d'Haïti — autres téléphones : 41863841, 38328844
+- Mission Assemblée de Dieu Eben-Ezer d'Haïti — autres téléphones : 4834-1782
+- Mission Assemblée de la Grace — autres téléphones : 34485305
+- Mission Baptiste de la Bible Internationale — autres téléphones : 31771957
+- Mission Baptiste de la Grace d'Haïti — autres téléphones : 36878950
+- Mission Baptiste du Haïtienne du Nord — autres téléphones : 4082-3178
+- Mission Baptiste Fondamentale de la Grace — autres téléphones : 34156897
+- Mission Baptiste Haïtienne du Nord — autres téléphones : 4082-3178
+- Mission Baptiste New Convenent d'Haiti — autres téléphones : 31463795
+- Mission Baptiste Philadelphie Maison de Prière — autres téléphones : 3221-7132
+- Mission Baptiste Source de Paix — autres téléphones : 44197563, 37333038, 37160648
+- Mission Baptiste Stricte de Jacmel (le Tabernacle) — autres téléphones : 34075718
+- Mission Bethesda Internationale — autres téléphones : 34752587
+- Mission Chrétienne d'Haïti — autres téléphones : 3114-4993
+- Mission Chrétienne des portes ouvertes — autres téléphones : 48948726, 36612539
+- Mission Chrétienne El Shaddai — autres téléphones : 32533720, 36994988
+- Mission Communion des Eglises d'Emmaüs — autres téléphones : 34753491, 37776611, 34321044
+- Mission Croisade du Salut d'Haïti — autres téléphones : 37592412
+- Mission Croisade Évangélique Mondiale — autres téléphones : 37177097
+- Mission Croisade Evangélique. Internationale — autres téléphones : 3774-3773
+- Mission d'Union Foi Apostolique d'Haïti — autres téléphones : 37755433, 43254899
+- Mission de l'Eglise Cœur Restauré d'Haïti — autres téléphones : 3695-1945, 3794-4493, 3100-2863
+- Mission de L'Eglise de Dieu Maison de Louange d'Haïti — autres téléphones : 3738-2983
+- Mission de l'Eglise des Combattants pour Christ — autres téléphones : 3847-6521, 3834-1345, 3163-6311
+- Mission de l'Eglise Méthodiste d'Haïti — autres téléphones : 37327001
+- Mission de la Renaissance Internationale — autres téléphones : 34636335
+- Mission de la Renaissance Internationale — autres téléphones : 34636335
+- Mission des Combattants sur le Chemin de la Croix — autres téléphones : 37509488, 38335508, 44012629
+- Mission des Eglises Evangéliques Baptiste Patmos D'Haïti — autres téléphones : 43551158
+- Mission des Eglises Évangéliques Universelles du dernier temps — autres téléphones : 38153409, 37809088
+- Mission des Eglises Réformées d'Haïti — autres téléphones : 7862824032
+- Mission des Elus de Dieu — autres téléphones : 31745716
+- Mission du Ministère Evangélique Baptiste Action Chrétienne — autres téléphones : 41392482
+- Mission Eben Ezer de Jacmel — autres téléphones : 37551326
+- Mission Eglise Baptiste Armée du Christ — autres téléphones : 36766977, 37171556
+- Mission Eglise Baptiste Chrétienne — autres téléphones : 34615040
+- Mission Eglise Chrétienne Emmaüs d'Haïti — autres téléphones : 37056785
+- Mission Eglise Chrétienne Reformée d'Haïti (MECRH) — autres e-mails : eli92006@yahoo.fr ; autres téléphones : 36740607
+- Mission Eglise de Dieu d'Unité Chrétienne d'Haïti — autres téléphones : 31686972
+- Mission Eglise De Dieu de la Foi Apostolique d'Haïti — autres téléphones : 37983756, 37390683
+- Mission Eglise de Dieu de la Nouvelle Alliance — autres téléphones : 34639575, 37076173
+- Mission Eglise de Dieu de la Nouvelle Vision — autres téléphones : 38740042, 37605115
+- Mission Eglise de Dieu de la Prophétie d'Haïti — autres téléphones : 22268309
+- Mission Eglise de Dieu des 1ers Chrétiens — autres téléphones : 33361553
+- Mission Eglise de Dieu des Frères Unis (MEDFU) — autres téléphones : 38523081
+- Mission Eglise de Dieu des Oints — autres téléphones : 47678252
+- Mission Eglise de Dieu Grâce et Paix — autres téléphones : 31177884, 3632-7448
+- Mission Eglise de Dieu Jésus est le chemin de la foi des apôtres — autres téléphones : 32777083
+- Mission Eglise de Dieu la Main du Christ — autres téléphones : 36096609
+- Mission Eglise de Dieu Nazareth d'Haïti — autres téléphones : 46935246
+- Mission Eglise de Dieu par la Foi en Christ — autres e-mails : dieunesbrunis@yahoo.com ; autres téléphones : 34385057, 40236447
+- Mission Eglise de Dieu Pentecôtiste Libre d'Haïti — autres téléphones : 34682460, 34138335
+- Mission Eglise de Dieu Philadelphie reformée — autres téléphones : 31150898, 37263813
+- Mission Eglise de Dieu Sabaoth d'Haïti — autres téléphones : 37940945, 3920-1698, 38192741
+- Mission Eglise de Dieu Union des Chrétiens — autres téléphones : 37895133, 40154705
+- Mission Eglise de Jésus-Christ de Pentecôte — autres téléphones : 31800698
+- Mission Eglise de la Bonne Nouvelle — autres téléphones : 37786689
+- Mission Eglise de la Christianisation d'Haïti — autres téléphones : 37864738, 37437019, 33603599
+- Mission Eglise Évangélique Ambassadeur pour Christ — autres téléphones : 37865954
+- Mission Eglise Évangélique Baptiste de Sarthe — autres téléphones : 3711-9233, 3402-2299, 3693-8017
+- Mission Eglise Évangélique Baptiste Philadelphie — autres e-mails : meebpmission06@gmail.com, andreciceron07@gmail.com ; autres téléphones : 4283-3381, 46273878, 4802-9518
+- Mission Eglise Evangélique d'Haïti — autres téléphones : 48588565
+- Mission Eglise Evangélique de la restauration en Haïti (MEERH) — autres téléphones : 48942082
+- Mission Eglise Evangélique des gagneurs d'âme d'Haïti — autres téléphones : 3331-1240, 3179-7963, 4675-4107
+- Mission Eglise Évangélique Vallée de l'Espoir — autres e-mails : roodnypolemon@gmail.com ; autres téléphones : 46952461, 3832-2249, 34027901
+- Mission Eglise Evangéliques Des Pèlerins d'Haïti (MEEPH) — autres téléphones : 39471449
+- Mission Eglise les amis de l'Epoux d'Haïti — autres téléphones : 4290-6219, 3845-8018, 3602-6801
+- Mission Eglise Messianique Assemblée de Dieu (MEMAD) — autres téléphones : 38476801, 40259664
+- Mission Eglise Méthodiste Libre à l'intérieure d'Haïti — autres téléphones : 37549432
+- Mission Eglise Nouvelle Jérusalem d'Haïti (MENOJEH) — autres téléphones : 34560103
+- Mission Eglise Refuge des Pêcheurs — autres téléphones : 3724-1470, 3694-3550, 3371-1557
+- Mission Eglise Ste-Cité — autres téléphones : 29986000
+- Mission Eglise Troupeau de Jésus-Christ (METROJESUS) — autres e-mails : senrosie@gmail.com ; autres téléphones : 34759653
+- Mission Evangélique Baptiste de la Fraternité — autres téléphones : 43863659, 37543173
+- Mission Evangélique Baptiste du Sud D'Haïti (MEBSH) — autres téléphones : 48635098, 48920060
+- Mission Evangélique Baptiste Gethsémani d'Haïti — autres téléphones : 34072536, 38280489, 36393683
+- Mission Evangélique Baptiste Holiness — autres téléphones : 32238297, 36648330, 42451075
+- Mission Évangélique Betsaleel d'Haïti — autres e-mails : senequedenis498@gmail.com ; autres téléphones : 41077463, 40426986, 47580436
+- Mission Evangélique Chrétienne d'Haïti (MECH) — autres e-mails : pierrelouis2005@yahoo.fr ; autres téléphones : 36948795, 37282009
+- Mission Evangélique Cité de Dieu ci devant armée du Christ — autres téléphones : 3711-8852, 37034384
+- Mission Evangélique du Nord — autres téléphones : 34631703, 37418102
+- Mission Evangélique Eben-Ezer des Gonaïves — autres téléphones : 32135746, 37052559
+- Mission Evangélique et Développement social — autres e-mails : roodnypolemon@gmail.com ; autres téléphones : 46952461, 3832-2249, 34027901
+- Mission Évangélique Gagneurs D'âmes pour Christ — autres téléphones : 40375841
+- Mission Evangélique Grace Abondante — autres téléphones : 36376901, 46231925
+- Mission Evangélique Jésus Fondement d'Haïti — autres téléphones : 32166420
+- Mission Evangélique les Appelés de Dieu (MEVAD) — autres téléphones : 43894746, (509)34907526, 42388170
+- Mission Evangélique Mondiale de la Bonne Semence — autres téléphones : 49319235, 47678252
+- Mission Evangélique par la Foi d'Haïti — autres téléphones : 36199091
+- Mission Fils de Dieu — autres téléphones : 32134254
+- Mission Grace Divine Haiti — autres e-mails : jeanhermilus220ct@gmail.com ; autres téléphones : 34192579, 36028643, 48434664
+- Mission Kernel d'Haïti — autres téléphones : 42301717, 41066888, 42253423
+- Mission Les Assemblées de Dieu en Haïti — autres téléphones : 34054651
+- Mission Nouvelle Eglise Evangélique Baptiste d'Haïti — autres téléphones : 40752431
+- Mission Pentecostale Soldats de Jésus — autres téléphones : 41834536, 38718838
+- Mission Première Eglise Evangélique Interdenominationnelle — autres téléphones : 36092117
+- Mission Roc Solide — autres téléphones : 46888080, 36480550
+- Mission Sainte Cite Nouvelle Jérusalem — autres téléphones : 41228898, 38605102, 44422840
+- Mission Union Chrétienne des haïtiens — autres téléphones : 43667179, 33544533
+- Mission Vision Action Haiti — autres e-mails : elodiewoolley@gmail.com ; autres téléphones : 41794369
+- Mouvement citoyen Chrétien — autres e-mails : jbjoses@hotmail.com ; autres téléphones : 34190657
+- Mouvement Missionnaire Mondial — autres téléphones : 37489611, 40364277
+- Orchestre Evangélique la Petite Trompette d'Haïti — autres téléphones : 3832-2249, 3780-8693, 3787-5789
+- Organisation d'Aide au Développement (ORADE) — autres e-mails : elco.laborde@gmail.com ; autres téléphones : 4077-6293, 3711-1203
+- Organisation des leaders des Pasteurs de cabaret (OLEC) — autres téléphones : 36624221
+- Organisation des Missions Evangéliques Communion Chrétienne d'Haïti — autres téléphones : 42259900
+- Organisation Flambeau Céleste pour le Développement Intégral de l'Etre Humain — autres téléphones : 3780-7540, 4930-3820, 3679-0568
+- Organisation Humanitaire pour la Sauvegarde des Etres — autres téléphones : 39095911, 47131964, 36252646
+- Organisation Messager de Vie Internationale — autres téléphones : 36862852, 32026746, 32404023
+- Organisation pour le Développement Local Avisé (ODELA) — autres e-mails : romieblaise@gmail.com, cdjacquet@yahoo.com ; autres téléphones : 786-768-0309, 4891-7628, 4006-9523
+- Organisation pour le Renforcement Holistique des Familles Vulnérables (OREHFAV) — autres e-mails : chandrinef@gmail.com, fleurismawily@gmail.com
+- Organisation Socio-Spirituelle Jésus est la Solution — autres e-mails : yvesmariecoquillon2@gmail.com ; autres téléphones : 37690558, 37146762, 46187964
+- Pensée de la Théologie — autres e-mails : penserlatheologie@gmail.com, cocoh2000@yahoo.fr ; autres téléphones : (509)37456933, 43737147, 38482629
+- Programme d'Action des Chrétiens pour l'Évangélisation et le Développement — autres téléphones : 3651-8844, 4470-2294
+- Radio Sentinelle — autres téléphones : 37573626
+- Radio VIHAMO — autres téléphones : 4818-4495, 3749-1949, 3735-5220
+- RAISON — autres e-mails : raison2009@hotmail.com ; autres téléphones : 33733027, 44411030
+- RENAPADD — autres téléphones : 34542518, 37427393
+- SKDE / LEPH — autres téléphones : 32099568, 42074257
+- Solidarité Chrétienne — autres e-mails : maajacques44@gmail.com ; autres téléphones : 36279103, 31347291, 38465409
+- Tabernacle de la Foi Ministère Haïtienne — autres téléphones : 9547163514
+- Union des Chrétiens pour le Développement d'Haïti — autres téléphones : 3847-4139, 3415-6613, 4364-1097
+- Union des Pêcheurs d'âmes de l'évangélisation pour le Ministère — autres téléphones : 36116316
+- Union Evangélique Baptiste d'Haïti (UEBH) — autres téléphones : 47997887
+- Université INUFOCAD — autres téléphones : 37786689
+- Wayom Timoun — autres téléphones : 41535020, 305-409-4604
+

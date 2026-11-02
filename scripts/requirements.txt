@@ -1,0 +1,3 @@
+cryptography>=42
+pypdf>=4
+httpx>=0.27          # uniquement pour `import --api` (enrolement auprès du serveur qui tourne)

@@ -1,0 +1,19 @@
+# EXEMPLE systemd (Linux) — NON TESTÉ. À adapter puis : sudo cp ... /etc/systemd/system/fph-agent.service
+[Unit]
+Description=Agent d'impression FPH Connect
+After=network-online.target cups.service
+Wants=network-online.target
+
+[Service]
+User=fph-agent
+# Fichier d'environnement en lecture seule pour l'utilisateur du service (contient le jeton) : chmod 600
+EnvironmentFile=/etc/fph-agent.env
+WorkingDirectory=/opt/fph-connect/agent
+ExecStart=/usr/bin/python3 -m fph_agent
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

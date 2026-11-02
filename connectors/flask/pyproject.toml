@@ -1,0 +1,7 @@
+[project]
+name = "fph-flask-connector"
+version = "0.1.0"
+dependencies = ["flask>=3.0"]
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
