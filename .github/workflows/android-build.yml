@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: "temurin"
           java-version: "17"
@@ -44,11 +44,37 @@ jobs:
           pip install "Cython>=3.0,<3.1" virtualenv
           pip install buildozer
 
-      # buildozer télécharge et gère lui-même le SDK/NDK Android sous .buildozer/ :
-      # la première exécution est longue (plusieurs Go) mais ne doit pas être court-circuitée
-      # par un ANDROID_NDK_HOME externe, qui entrerai en conflit avec ses propres chemins.
+      # python-for-android REFUSE de démarrer si l'identité git n'est pas définie
+      # ("You must set git user.name and user.email") : c'était l'échec instantané (1m37s,
+      # avant tout téléchargement SDK/NDK). On la pose globalement pour le runner.
+      - name: Configure git identity (required by python-for-android)
+        run: |
+          git config --global user.email "builder@fph.local"
+          git config --global user.name "FPH CI Builder"
+
+      # buildozer télécharge et gère lui-même le SDK/NDK Android sous .buildozer/.
+      # On capture la sortie dans build.log et, en cas d'échec, on publie la dernière ligne
+      # d'erreur en ANNOTATION (visible sans login) + le log complet en artefact, car GitHub
+      # exige désormais une connexion pour lire les logs bruts.
       - name: Build debug (beta) APK
-        run: buildozer --verbose android debug
+        run: |
+          set +e
+          buildozer --verbose android debug 2>&1 | tee build.log
+          status=${PIPESTATUS[0]}
+          set -e
+          if [ "$status" -ne 0 ]; then
+            err=$(grep -iE "error|exception|must set|traceback|not found|failed" build.log | tail -n 3 | tr '\n' ' ' | sed 's/%/%%/g')
+            echo "::error::buildozer android debug failed (exit $status). Last: ${err:-see uploaded build.log}"
+            exit "$status"
+          fi
+
+      - name: Upload build log (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: buildozer-log
+          path: client/build.log
+          if-no-files-found: ignore
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
