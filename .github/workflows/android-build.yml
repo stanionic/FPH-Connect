@@ -63,8 +63,14 @@ jobs:
           status=${PIPESTATUS[0]}
           set -e
           if [ "$status" -ne 0 ]; then
-            err=$(grep -iE "error|exception|must set|traceback|not found|failed" build.log | tail -n 3 | tr '\n' ' ' | sed 's/%/%%/g')
-            echo "::error::buildozer android debug failed (exit $status). Last: ${err:-see uploaded build.log}"
+            # La vraie cause est AU-DESSUS du footer generique de buildozer. On isole le bloc
+            # qui precede « Buildozer failed to execute the last command », plus les signatures
+            # d'erreur cles, et on les replie en UNE annotation multi-ligne (visible sans login).
+            foot=$(grep -nE "Buildozer failed to execute the last command|The error might be hidden" build.log | head -n1 | cut -d: -f1)
+            if [ -n "$foot" ]; then sed -n "$(( foot > 45 ? foot - 45 : 1 )),${foot}p" build.log > err.txt; else tail -n 45 build.log > err.txt; fi
+            grep -iE "Traceback|No module named|Could not|not found|Command .* failed|BUILD FAILED|FAILURE:|What went wrong|ERROR:|recipe .* failed|aidl|ndk|cython|gradle" build.log | tail -n 20 >> err.txt
+            body=$(sed 's/%/%%/g' err.txt | sed ':a;N;$!ba;s/\n/%0A/g')
+            echo "::error::buildozer exit=$status root-cause:%0A${body:0:3500}"
             exit "$status"
           fi
 
