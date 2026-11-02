@@ -1,0 +1,58 @@
+name: Android beta build
+
+# Produit un APK de debug (build « beta ») sur un runner Linux hébergé.
+# buildozer/python-for-android ne tournent que sous Linux/macOS : c'est le seul endroit
+# où ce dépôt peut générer l'APK (la machine de dev est sous Windows, sans SDK/NDK).
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "client/**"
+      - ".github/workflows/android-build.yml"
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            git openssh-client curl wget zip unzip tzdata file \
+            autoconf libtool pkg-config cmake \
+            zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 \
+            libffi-dev libssl-dev patchelf ccache \
+            python3-all-dev python3-virtualenv
+
+      - name: Install buildozer
+        run: |
+          pip install --upgrade pip setuptools wheel
+          pip install "Cython>=3.0,<3.1" virtualenv
+          pip install buildozer
+
+      # buildozer télécharge et gère lui-même le SDK/NDK Android sous .buildozer/ :
+      # la première exécution est longue (plusieurs Go) mais ne doit pas être court-circuitée
+      # par un ANDROID_NDK_HOME externe, qui entrerai en conflit avec ses propres chemins.
+      - name: Build debug (beta) APK
+        run: buildozer --verbose android debug
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fph-connect-beta-apk
+          path: client/bin/*.apk
+          if-no-files-found: error
