@@ -13,5 +13,8 @@ orientation = portrait
 android.permissions = INTERNET,ACCESS_NETWORK_STATE
 android.api = 34
 android.minapi = 24
+# Sans acceptation de licence, sdkmanager n'INSTALLE PAS les build-tools -> buildozer echoue
+# sur « Aidl not found / build-tools folder not found ». On accepte la licence pour le CI.
+android.accept_sdk_license = True
 # Ligne beta : APK de debug construit par .github/workflows/android-build.yml (runner Linux).
 # La compilation Android n'avait jamais ete executee ; ce workflow est la premiere tentative (voir docs/LIMITATIONS.md).
