@@ -18,7 +18,14 @@
         if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
         if (options.body) headers["Content-Type"] = "application/json";
         const response = await fetch(path, { ...options, headers, cache: "no-store" });
-        const data = response.status === 204 ? null : await response.json();
+        let data = null;
+        if (response.status !== 204) {
+            try {
+                data = await response.json();
+            } catch {
+                throw new Error("Le serveur a renvoyé une réponse invalide. Veuillez réessayer.");
+            }
+        }
         if (!response.ok) throw new Error(messageText(data));
         return data;
     }
@@ -48,6 +55,7 @@
         accountDetails.hidden = true;
         logoutButton.hidden = true;
         changePasswordForm.hidden = true;
+        changePasswordForm.reset();
         document.querySelector("#accountHeading").textContent = "Connexion";
         document.querySelector("#password").value = "";
     }
@@ -142,12 +150,16 @@
     });
 
     logoutButton.addEventListener("click", async () => {
+        let logoutError = null;
         try {
             await api("/api/logout", { method: "POST" });
         } catch (error) {
-            setAuthMessage(error.message);
-        } finally {
-            showLoggedOut();
+            logoutError = error.message;
+        }
+        showLoggedOut();
+        if (logoutError) {
+            setAuthMessage(`Session fermée sur cet appareil, mais la déconnexion du serveur n'a pas été confirmée : ${logoutError}`);
+        } else {
             setAuthMessage("Vous êtes déconnecté.", true);
         }
     });

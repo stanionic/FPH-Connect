@@ -49,7 +49,12 @@ def create_app() -> Flask:
         try:
             with urlopen(api_request, timeout=10) as response:
                 payload = response.read()
-                return (json.loads(payload) if payload else None), response.status
+                try:
+                    result = json.loads(payload) if payload else None
+                except json.JSONDecodeError:
+                    logger.exception("FPH API returned invalid JSON for %s", path)
+                    return {"detail": "Le serveur FPH a renvoyé une réponse invalide."}, 502
+                return result, response.status
         except HTTPError as error:
             payload = error.read()
             try:
@@ -117,7 +122,7 @@ def create_app() -> Flask:
 
     @app.post("/api/login")
     def login():
-        body = request.get_json()
+        body = request.get_json(silent=True)
         if not isinstance(body, dict):
             return jsonify(detail="Le corps JSON est requis."), 400
         identifier = body.get("identifier")
@@ -152,7 +157,7 @@ def create_app() -> Flask:
         token, error = token_required()
         if error:
             return error
-        body = request.get_json()
+        body = request.get_json(silent=True)
         if not isinstance(body, dict):
             return jsonify(detail="Le corps JSON est requis."), 400
         current = body.get("current_password")

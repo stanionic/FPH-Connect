@@ -19,6 +19,11 @@ class APIResponse:
         return self.data
 
 
+class InvalidJSONResponse(APIResponse):
+    def read(self):
+        return b"not-json"
+
+
 def test_pwa_pages_and_manifest():
     client = create_app().test_client()
 
@@ -58,6 +63,13 @@ def test_login_is_proxied_without_enabling_cross_origin_requests():
     assert "Access-Control-Allow-Origin" not in response.headers
 
 
+def test_login_rejects_non_json_request_body():
+    response = create_app().test_client().post("/api/login", data="not json")
+
+    assert response.status_code == 400
+    assert response.json["detail"] == "Le corps JSON est requis."
+
+
 def test_authenticated_routes_forward_bearer_token():
     client = create_app().test_client()
     captured = {}
@@ -75,6 +87,16 @@ def test_authenticated_routes_forward_bearer_token():
     assert response.status_code == 200
     assert response.json["full_name"] == "Membre"
     assert captured["authorization"] == "Bearer session-token"
+
+
+def test_invalid_upstream_json_returns_service_error():
+    client = create_app().test_client()
+
+    with patch("pwa.app.urlopen", return_value=InvalidJSONResponse({})):
+        response = client.get("/api/events")
+
+    assert response.status_code == 502
+    assert response.json["detail"] == "Le serveur FPH a renvoyé une réponse invalide."
 
 
 def test_public_church_search_is_forwarded():
