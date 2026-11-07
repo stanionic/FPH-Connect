@@ -48,3 +48,13 @@ puis `live` ; désactivez ensuite l'intégration WordPress.
   (voir `connectors/flask`). Appelez-la depuis votre vue de formulaire, jamais depuis du JavaScript navigateur.
   Ajoutez votre propre anti-spam (CAPTCHA) : la limite de 60 requêtes/minute protège le serveur, pas votre formulaire.
 - Consulter les inscrits : `GET /api/v1/events/{id}/registrations` (responsables autorisés de l'événement uniquement).
+
+## 5. Application web installable (PWA)
+L'application Flask de `pwa/` fournit un annuaire public des églises affiliées, les événements publiés
+et une connexion à l'API FPH. Elle peut être lancée avec `docker compose up -d pwa` (ou
+`cd pwa && pip install -r requirements.txt && FPH_API_URL=http://127.0.0.1:8000 python app.py`).
+La PWA est disponible sur `http://127.0.0.1:5000` en développement. En production, publiez-la
+derrière HTTPS avec l'API et configurez `FPH_API_URL` comme URL API joignable depuis le conteneur.
+La connexion utilise un proxy Flask de même origine ; aucun jeton n'est enregistré dans le stockage
+du navigateur, et il faut se reconnecter après un rechargement. Le service worker met en cache
+uniquement l'interface et ses ressources, jamais l'API ni les données personnelles.

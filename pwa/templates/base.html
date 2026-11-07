@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="{{ config.PWA_THEME_COLOR }}">
+    <meta name="description" content="Annuaire des églises et événements de la Fédération Protestante d'Haïti.">
+    <title>{% block title %}FPH Connect{% endblock %}</title>
+    <link rel="manifest" href="{{ url_for('manifest') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="/" aria-label="FPH Connect, accueil">
+            <img src="{{ url_for('static', filename='icons/icon.svg') }}" alt="" width="42" height="42">
+            <span>FPH <strong>Connect</strong></span>
+        </a>
+        <span class="connection-status" id="connectionStatus" role="status">En ligne</span>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>FPH Connect · Fédération Protestante d'Haïti</p>
+        <p id="offlineNotice" class="offline-notice" hidden>Vous êtes hors ligne. Les données ne sont pas disponibles.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

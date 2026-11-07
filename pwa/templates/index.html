@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}FPH Connect — Églises et événements{% endblock %}
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">Fédération Protestante d'Haïti</p>
+    <h1>Connectés pour servir.</h1>
+    <p>Retrouvez les églises affiliées et les événements publiés par la FPH.</p>
+</section>
+
+<section class="account-panel panel" aria-labelledby="accountHeading">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Espace membre</p>
+            <h2 id="accountHeading">Connexion</h2>
+        </div>
+        <button id="logoutButton" class="button button-secondary" type="button" hidden>Déconnexion</button>
+    </div>
+    <form id="loginForm" class="login-form">
+        <label for="identifier">E-mail ou nom d'utilisateur</label>
+        <input id="identifier" name="identifier" autocomplete="username" required>
+        <label for="password">Mot de passe</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button class="button" type="submit">Se connecter</button>
+        <p class="form-note">Votre session reste en mémoire uniquement et sera fermée si vous rechargez cette page.</p>
+    </form>
+    <div id="accountDetails" hidden>
+        <p id="welcomeMessage" class="welcome-message"></p>
+        <form id="changePasswordForm" class="login-form" hidden>
+            <h3>Choisissez un nouveau mot de passe</h3>
+            <label for="currentPassword">Mot de passe actuel</label>
+            <input id="currentPassword" name="current_password" type="password" autocomplete="current-password" required>
+            <label for="newPassword">Nouveau mot de passe</label>
+            <input id="newPassword" name="new_password" type="password" autocomplete="new-password" required>
+            <button class="button" type="submit">Mettre à jour</button>
+        </form>
+    </div>
+    <p id="authMessage" class="notice" role="status" aria-live="polite"></p>
+</section>
+
+<section class="content-section" aria-labelledby="churchHeading">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Répertoire public</p>
+            <h2 id="churchHeading">Églises affiliées</h2>
+        </div>
+    </div>
+    <form id="churchSearch" class="filter-form">
+        <label class="sr-only" for="churchQuery">Rechercher une église ou une commune</label>
+        <input id="churchQuery" name="q" placeholder="Église ou commune">
+        <label class="sr-only" for="churchDepartment">Département</label>
+        <select id="churchDepartment" name="department">
+            <option value="">Tous les départements</option>
+            <option>Artibonite</option><option>Centre</option><option>Grand'Anse</option>
+            <option>Nippes</option><option>Nord</option><option>Nord-Est</option>
+            <option>Nord-Ouest</option><option>Ouest</option><option>Sud</option><option>Sud-Est</option>
+        </select>
+        <button class="button" type="submit">Rechercher</button>
+    </form>
+    <p id="churchStatus" class="list-status" role="status" aria-live="polite"></p>
+    <div id="churchList" class="card-grid"></div>
+</section>
+
+<section class="content-section" aria-labelledby="eventHeading">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">À venir</p>
+            <h2 id="eventHeading">Événements</h2>
+        </div>
+    </div>
+    <p id="eventStatus" class="list-status" role="status" aria-live="polite"></p>
+    <div id="eventList" class="card-grid"></div>
+</section>
+{% endblock %}

@@ -19,6 +19,14 @@ services:
     depends_on: [db]
     # Réseau local : remplacer par "0.0.0.0:8000:8000" ET placer un proxy TLS devant (voir docs/LAN_GUIDE.md)
     ports: ["127.0.0.1:8000:8000"]
+  pwa:
+    build: ./pwa
+    environment:
+      FPH_API_URL: http://server:8000
+      PORT: 5000
+    depends_on: [server]
+    # Expose behind the same HTTPS proxy as the API in production.
+    ports: ["127.0.0.1:5000:5000"]
   worker:
     build: ./server
     command: ["python", "-m", "app.worker"]
