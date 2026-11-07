@@ -58,3 +58,7 @@ derrière HTTPS avec l'API et configurez `FPH_API_URL` comme URL API joignable d
 La connexion utilise un proxy Flask de même origine ; aucun jeton n'est enregistré dans le stockage
 du navigateur, et il faut se reconnecter après un rechargement. Le service worker met en cache
 uniquement l'interface et ses ressources, jamais l'API ni les données personnelles.
+Pour Render ou un autre hébergeur Docker qui construit depuis la racine du dépôt, utilisez le
+`Dockerfile` à la racine (il copie l'application depuis `pwa/` et écoute sur `$PORT`). Configurez
+`FPH_API_URL` avec l'URL HTTPS publique de l'API FPH ; `http://server:8000` ne fonctionne que sur le
+réseau Docker Compose local.
