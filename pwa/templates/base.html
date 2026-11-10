@@ -23,9 +23,14 @@
     <main>
         {% block content %}{% endblock %}
     </main>
-    <footer>
-        <p>FPH Connect · Fédération Protestante d'Haïti</p>
-        <p>Contact du concepteur sur WhatsApp : <a href="https://wa.me/50948592888">+509 4859 2888</a></p>
+    <footer class="site-footer">
+        <div class="footer-cta">
+            <p class="footer-cta-text">Une question ou un projet&nbsp;? Échangez directement avec le concepteur.</p>
+            <a href="https://wa.me/50948592888" class="footer-cta-button" target="_blank" rel="noopener noreferrer" aria-label="Contacter le concepteur sur WhatsApp au +509 4859 2888">
+                Contacter le concepteur&nbsp;<span class="footer-cta-badge">WhatsApp ↗</span>
+            </a>
+        </div>
+        <p class="footer-brand">FPH Connect · Fédération Protestante d'Haïti</p>
         <p id="offlineNotice" class="offline-notice" hidden>Vous êtes hors ligne. Les données ne sont pas disponibles.</p>
     </footer>
     <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>

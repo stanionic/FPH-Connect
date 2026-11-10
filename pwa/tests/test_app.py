@@ -37,8 +37,9 @@ def test_pwa_pages_and_manifest():
     assert b"FPH Connect" in page.data
     assert b'id="organizationSection"' in page.data
     for rendered_page in (page, offline, not_found):
-        assert b"Contact du concepteur sur WhatsApp" in rendered_page.data
+        assert b"Une question ou un projet" in rendered_page.data
         assert b'href="https://wa.me/50948592888"' in rendered_page.data
+        assert b"WhatsApp" in rendered_page.data
         assert b"+509 4859 2888" in rendered_page.data
     assert offline.status_code == 200
     assert not_found.status_code == 404
