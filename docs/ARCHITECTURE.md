@@ -28,6 +28,12 @@ Deux récepteurs : plugin WordPress (transition) et module Flask (cible). La mig
 ajouter une 2ᵉ intégration, la valider en mode test, la passer en live, puis désactiver l'ancienne.
 Le site ne touche jamais la base FPH ; le serveur ne touche jamais la base du site.
 
+## PWA et client Kivy
+La PWA et le client Kivy utilisent la même API FastAPI et donc la même base centrale. Le cache SQLite
+du client Kivy reste local à l'appareil : il n'est pas partagé directement avec le navigateur. Le
+registre MEOL de la PWA passe par une route protégée de l'API ; les permissions et le périmètre du
+compte sont vérifiés par le serveur, comme dans Kivy.
+
 ## Hébergement
 Mode A (hébergé) : `docker-compose.yml` fourni (PostgreSQL + serveur), reverse proxy HTTPS à ajouter.
 Mode B (serveur local) : même image sur un serveur du réseau interne ; synchronisation vers le

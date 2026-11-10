@@ -37,6 +37,8 @@ input:focus, select:focus, button:focus-visible, a:focus-visible { outline: 3px 
 .login-form .button { grid-column: 1 / -1; justify-self: start; }
 .button-secondary { color: var(--blue); background: #fff; }
 .button-secondary:hover { color: #fff; }
+.button:disabled { opacity: .5; cursor: not-allowed; }
+.pagination-controls { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }
 .button-link { margin-top: 6px; }
 .form-note { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: .82rem; }
 .welcome-message { margin: 18px 0 0; font-weight: 650; }

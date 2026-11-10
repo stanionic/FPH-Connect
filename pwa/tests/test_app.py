@@ -28,11 +28,20 @@ def test_pwa_pages_and_manifest():
     client = create_app().test_client()
 
     page = client.get("/")
+    offline = client.get("/offline")
+    not_found = client.get("/missing-page")
     manifest = client.get("/manifest.webmanifest")
     worker = client.get("/service-worker.js")
 
     assert page.status_code == 200
     assert b"FPH Connect" in page.data
+    assert b'id="organizationSection"' in page.data
+    for rendered_page in (page, offline, not_found):
+        assert b"Contact du concepteur sur WhatsApp" in rendered_page.data
+        assert b'href="https://wa.me/50948592888"' in rendered_page.data
+        assert b"+509 4859 2888" in rendered_page.data
+    assert offline.status_code == 200
+    assert not_found.status_code == 404
     assert manifest.mimetype == "application/manifest+json"
     assert manifest.json["display"] == "standalone"
     assert worker.status_code == 200
@@ -114,6 +123,44 @@ def test_public_church_search_is_forwarded():
     assert response.json == []
     assert "department=Ouest" in captured["url"]
     assert "q=%C3%89glise" in captured["url"]
+
+
+def test_organizations_require_auth_and_forward_pagination_to_shared_api():
+    client = create_app().test_client()
+    captured = {}
+
+    def fake_urlopen(req, timeout):
+        captured["authorization"] = req.get_header("Authorization")
+        captured["url"] = req.full_url
+        return APIResponse([{"id": "org-1", "name": "Église FPH"}])
+
+    with patch("pwa.app.urlopen", side_effect=fake_urlopen):
+        unauthorized = client.get("/api/organizations")
+        response = client.get(
+            "/api/organizations?q=Église&department=Ouest&limit=100&offset=200",
+            headers={"Authorization": "Bearer session-token"},
+        )
+
+    assert unauthorized.status_code == 401
+    assert response.status_code == 200
+    assert response.json[0]["name"] == "Église FPH"
+    assert captured["authorization"] == "Bearer session-token"
+    assert captured["url"].endswith(
+        "/api/v1/organizations?limit=100&offset=200&q=%C3%89glise&department=Ouest"
+    )
+
+
+def test_organizations_reject_invalid_pagination():
+    client = create_app().test_client()
+    headers = {"Authorization": "Bearer session-token"}
+
+    invalid_number = client.get("/api/organizations?limit=oops", headers=headers)
+    invalid_range = client.get("/api/organizations?limit=201", headers=headers)
+    invalid_search = client.get(f"/api/organizations?q={'x' * 101}", headers=headers)
+
+    assert invalid_number.status_code == 400
+    assert invalid_range.status_code == 400
+    assert invalid_search.status_code == 400
 
 
 def test_api_unavailable_returns_service_error():

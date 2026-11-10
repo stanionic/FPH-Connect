@@ -193,6 +193,31 @@ def create_app() -> Flask:
         result, status = api_request("/api/v1/public/events", query=query)
         return jsonify(result), status
 
+    @app.get("/api/organizations")
+    def organizations():
+        token, error = token_required()
+        if error:
+            return error
+
+        try:
+            limit = int(request.args.get("limit", "100"))
+            offset = int(request.args.get("offset", "0"))
+        except ValueError:
+            return jsonify(detail="Les paramètres de pagination doivent être des nombres entiers."), 400
+        if not 1 <= limit <= 200 or offset < 0:
+            return jsonify(detail="Pagination invalide."), 400
+
+        query = {"limit": str(limit), "offset": str(offset)}
+        for key in ("q", "department"):
+            value = request.args.get(key, "").strip()
+            if value:
+                query[key] = value
+        if len(query.get("q", "")) > 100:
+            return jsonify(detail="La recherche ne peut pas dépasser 100 caractères."), 400
+
+        result, status = api_request("/api/v1/organizations", token=token, query=query)
+        return jsonify(result), status
+
     @app.errorhandler(404)
     def not_found(_error):
         return render_template("404.html"), 404

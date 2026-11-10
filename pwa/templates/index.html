@@ -37,6 +37,34 @@
     <p id="authMessage" class="notice" role="status" aria-live="polite"></p>
 </section>
 
+<section id="organizationSection" class="content-section" aria-labelledby="organizationHeading" hidden>
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Données partagées avec Kivy</p>
+            <h2 id="organizationHeading">Registre MEOL</h2>
+        </div>
+    </div>
+    <p>Les fiches affichées sont celles que votre compte est autorisé à consulter.</p>
+    <form id="organizationSearch" class="filter-form">
+        <label class="sr-only" for="organizationQuery">Rechercher une organisation</label>
+        <input id="organizationQuery" name="q" maxlength="100" placeholder="Organisation">
+        <label class="sr-only" for="organizationDepartment">Département</label>
+        <select id="organizationDepartment" name="department">
+            <option value="">Tous les départements</option>
+            <option>Artibonite</option><option>Centre</option><option>Grand'Anse</option>
+            <option>Nippes</option><option>Nord</option><option>Nord-Est</option>
+            <option>Nord-Ouest</option><option>Ouest</option><option>Sud</option><option>Sud-Est</option>
+            <option>À déterminer</option>
+        </select>
+        <button class="button" type="submit">Rechercher</button>
+    </form>
+    <p id="organizationStatus" class="list-status" role="status" aria-live="polite"></p>
+    <div id="organizationList" class="card-grid"></div>
+    <div class="pagination-controls" aria-label="Pages du registre">
+        <button id="organizationPrevious" class="button button-secondary" type="button" disabled>Précédent</button>
+        <button id="organizationNext" class="button button-secondary" type="button" disabled>Suivant</button>
+    </div>
+</section>
 <section class="content-section" aria-labelledby="churchHeading">
     <div class="section-heading">
         <div>

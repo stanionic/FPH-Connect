@@ -5,6 +5,9 @@
     const accountDetails = document.querySelector("#accountDetails");
     const logoutButton = document.querySelector("#logoutButton");
     const changePasswordForm = document.querySelector("#changePasswordForm");
+    const organizationSection = document.querySelector("#organizationSection");
+    const organizationPageSize = 100;
+    let organizationOffset = 0;
 
     function messageText(data) {
         const detail = data && data.detail;
@@ -46,6 +49,9 @@
             setAuthMessage("Pour protéger votre compte, changez votre mot de passe avant de continuer.");
         } else {
             setAuthMessage("");
+        organizationSection.hidden = false;
+        organizationOffset = 0;
+        loadOrganizations();
         }
     }
 
@@ -57,6 +63,11 @@
         changePasswordForm.hidden = true;
         changePasswordForm.reset();
         document.querySelector("#accountHeading").textContent = "Connexion";
+        organizationSection.hidden = true;
+        document.querySelector("#organizationList").replaceChildren();
+        document.querySelector("#organizationStatus").textContent = "";
+        document.querySelector("#organizationPrevious").disabled = true;
+        document.querySelector("#organizationNext").disabled = true;
         document.querySelector("#password").value = "";
     }
 
@@ -103,6 +114,33 @@
         document.querySelector("#eventStatus").textContent =
             events.length ? `${events.length} événement(s) publié(s).` : "Aucun événement publié pour le moment.";
     }
+    function renderOrganizations(organizations) {
+        const list = document.querySelector("#organizationList");
+        list.replaceChildren();
+        for (const organization of organizations) {
+            const card = document.createElement("article");
+            card.className = "data-card";
+            appendText(card, "h3", organization.name);
+            appendText(card, "p", [
+                organization.commune,
+                organization.department,
+                organization.org_type,
+                organization.validation_status,
+            ].filter(Boolean).join(" · "));
+            const contact = [organization.contact_phone, organization.contact_email].filter(Boolean).join(" · ");
+            if (contact) appendText(card, "p", contact);
+            list.append(card);
+        }
+
+        const first = organizations.length ? organizationOffset + 1 : 0;
+        const last = organizationOffset + organizations.length;
+        document.querySelector("#organizationStatus").textContent = organizations.length
+            ? `Fiches ${first} à ${last} affichées.`
+            : "Aucune organisation trouvée.";
+        document.querySelector("#organizationPrevious").disabled = organizationOffset === 0;
+        document.querySelector("#organizationNext").disabled = organizations.length < organizationPageSize;
+    }
+
 
     async function loadChurches(query = "") {
         const status = document.querySelector("#churchStatus");
@@ -125,6 +163,21 @@
             status.textContent = error.message;
         }
     }
+    async function loadOrganizations() {
+        const status = document.querySelector("#organizationStatus");
+        status.textContent = "Chargement du registre…";
+        const params = new URLSearchParams(new FormData(document.querySelector("#organizationSearch")));
+        params.set("limit", String(organizationPageSize));
+        params.set("offset", String(organizationOffset));
+        try {
+            renderOrganizations(await api(`/api/organizations?${params}`));
+        } catch (error) {
+            status.textContent = error.message;
+            document.querySelector("#organizationPrevious").disabled = true;
+            document.querySelector("#organizationNext").disabled = true;
+        }
+    }
+
 
     loginForm.addEventListener("submit", async event => {
         event.preventDefault();
@@ -191,6 +244,20 @@
         const form = new FormData(event.currentTarget);
         loadChurches({ q: form.get("q"), department: form.get("department") });
     });
+    document.querySelector("#organizationSearch").addEventListener("submit", event => {
+        event.preventDefault();
+        organizationOffset = 0;
+        loadOrganizations();
+    });
+    document.querySelector("#organizationPrevious").addEventListener("click", () => {
+        organizationOffset = Math.max(0, organizationOffset - organizationPageSize);
+        loadOrganizations();
+    });
+    document.querySelector("#organizationNext").addEventListener("click", () => {
+        organizationOffset += organizationPageSize;
+        loadOrganizations();
+    });
+
 
     function updateConnection() {
         const online = navigator.onLine;
