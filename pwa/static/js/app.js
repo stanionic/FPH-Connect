@@ -1,5 +1,50 @@
 (() => {
     let accessToken = null;
+    const PUBLIC_CACHE_DB = "fph-connect-pwa";
+    const PUBLIC_CACHE_STORE = "public-data";
+
+    function openPublicCache() {
+        if (!("indexedDB" in window)) return Promise.resolve(null);
+        return new Promise(resolve => {
+            const request = indexedDB.open(PUBLIC_CACHE_DB, 1);
+            request.onupgradeneeded = () => request.result.createObjectStore(PUBLIC_CACHE_STORE);
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => resolve(null);
+        });
+    }
+
+    async function readPublicCache(key) {
+        const db = await openPublicCache();
+        if (!db) return null;
+        return new Promise(resolve => {
+            const request = db.transaction(PUBLIC_CACHE_STORE).objectStore(PUBLIC_CACHE_STORE).get(key);
+            request.onsuccess = () => { db.close(); resolve(request.result || null); };
+            request.onerror = () => { db.close(); resolve(null); };
+        });
+    }
+
+    async function writePublicCache(key, value) {
+        const db = await openPublicCache();
+        if (!db) return;
+        await new Promise(resolve => {
+            const request = db.transaction(PUBLIC_CACHE_STORE, "readwrite")
+                .objectStore(PUBLIC_CACHE_STORE).put(value, key);
+            request.onsuccess = request.onerror = () => resolve();
+        });
+        db.close();
+    }
+
+    async function publicApi(path) {
+        try {
+            const data = await api(path);
+            await writePublicCache(path, data);
+            return { data, cached: false };
+        } catch (error) {
+            const data = await readPublicCache(path);
+            if (data) return { data, cached: true };
+            throw error;
+        }
+    }
     const loginForm = document.querySelector("#loginForm");
     const authMessage = document.querySelector("#authMessage");
     const accountDetails = document.querySelector("#accountDetails");
@@ -147,8 +192,9 @@
         status.textContent = "Chargement de l'annuaire…";
         try {
             const params = new URLSearchParams(query);
-            const data = await api(`/api/churches?${params}`);
-            renderChurches(data);
+            const result = await publicApi(`/api/churches?${params}`);
+            renderChurches(result.data);
+            if (result.cached) status.textContent = "Hors ligne — données publiques enregistrées sur cet appareil.";
         } catch (error) {
             status.textContent = error.message;
         }
@@ -158,7 +204,9 @@
         const status = document.querySelector("#eventStatus");
         status.textContent = "Chargement des événements…";
         try {
-            renderEvents(await api("/api/events"));
+            const result = await publicApi("/api/events");
+            renderEvents(result.data);
+            if (result.cached) status.textContent = "Hors ligne — données publiques enregistrées sur cet appareil.";
         } catch (error) {
             status.textContent = error.message;
         }

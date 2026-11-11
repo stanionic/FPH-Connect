@@ -29,10 +29,14 @@ ajouter une 2ᵉ intégration, la valider en mode test, la passer en live, puis 
 Le site ne touche jamais la base FPH ; le serveur ne touche jamais la base du site.
 
 ## PWA et client Kivy
-La PWA et le client Kivy utilisent la même API FastAPI et donc la même base centrale. Le cache SQLite
-du client Kivy reste local à l'appareil : il n'est pas partagé directement avec le navigateur. Le
-registre MEOL de la PWA passe par une route protégée de l'API ; les permissions et le périmètre du
-compte sont vérifiés par le serveur, comme dans Kivy.
+La PWA et le client Kivy utilisent la même API FastAPI et donc la même base centrale : le serveur
+reste la source de vérité et assure la synchronisation entre appareils. Kivy garde son cache SQLite
+et sa file d'opérations hors ligne dans le répertoire de données propre à l'application. Le navigateur
+utilise IndexedDB séparément pour mettre en cache les seules listes publiques consultées (annuaire,
+événements) et les afficher hors ligne. Ces stockages locaux ne sont jamais partagés directement.
+Le registre MEOL de la PWA et les fonctions de compte restent en ligne, passent par des routes
+protégées de l'API et ne sont pas mis en cache. Les permissions et le périmètre du compte sont
+vérifiés par le serveur, comme dans Kivy.
 
 ## Hébergement
 Mode A (hébergé) : `docker-compose.yml` fourni (PostgreSQL + serveur), reverse proxy HTTPS à ajouter.
