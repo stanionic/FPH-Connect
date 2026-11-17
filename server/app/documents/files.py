@@ -7,8 +7,9 @@ from pathlib import Path
 from ..config import settings
 
 DOC_TYPES = ["lettre_officielle", "proces_verbal", "rapport", "certificat",
-             "document_affiliation", "archive_administrative"]
+             "document_affiliation", "archive_administrative", "partage_reseau"]
 CHURCH_REQUIRED = {"certificat", "document_affiliation"}
+SHARED_DOC_TYPE = "partage_reseau"
 
 ALLOWED = {  # extension -> (type MIME servi, signature(s) attendues)
     "pdf": ("application/pdf", [b"%PDF"]),

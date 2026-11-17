@@ -39,6 +39,9 @@ class User(Base):
     church_id: Mapped[str | None] = mapped_column(ForeignKey("churches.id", use_alter=True, name="fk_user_church"), nullable=True)
     organization_id: Mapped[str | None] = mapped_column(ForeignKey("organizations.id", use_alter=True, name="fk_user_org"), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    # Droits accordés nommément par le SuperAdmin, en plus de ceux du rôle.
+    # Permet notamment de donner le partage de fichiers à un compte dont le rôle ne l'a pas.
+    extra_permissions: Mapped[list] = mapped_column(JSON, default=list, server_default="[]")
     failed_logins: Mapped[int] = mapped_column(Integer, default=0)
     locked_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
@@ -212,6 +215,11 @@ class Document(Base):
     organized_by: Mapped[str | None] = mapped_column(String(36), nullable=True)
     batch_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
     inbox_item_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    # « scope » : visibilité institutionnelle habituelle (église / département / national).
+    # « network » : fichier partagé à tout le réseau FPH, lisible par tout compte autorisé.
+    visibility: Mapped[str] = mapped_column(String(20), default="scope", server_default="scope")
+    # Court message joint au partage (« pour la réunion de lundi », etc.).
+    share_note: Mapped[str | None] = mapped_column(String(500), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 
 
@@ -288,6 +296,18 @@ class Leader(Base):
     created_by: Mapped[str | None] = mapped_column(String(36), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now, onupdate=now)
+
+
+class OrganizationProgram(Base):
+    """Programme annuel declare par un MEOL (Mission, Eglise, Organisation, Ligue)."""
+    __tablename__ = "organization_programs"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    organization_id: Mapped[str] = mapped_column(ForeignKey("organizations.id"), index=True)
+    year: Mapped[int] = mapped_column(Integer)
+    title: Mapped[str] = mapped_column(String(200))
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_by: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 
 
 class LeaderAssignment(Base):

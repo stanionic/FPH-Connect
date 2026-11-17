@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}FPH Connect — Partage de fichiers{% endblock %}
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">Réseau FPH</p>
+    <h1>Partage de fichiers</h1>
+    <p>Déposez un document avec un court message. Les membres autorisés par le SuperAdmin peuvent le consulter et le télécharger depuis n'importe quel appareil du réseau.</p>
+</section>
+
+<section class="content-section" aria-labelledby="documentsHeading">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Espace membre</p>
+            <h2 id="documentsHeading">Fichiers partagés</h2>
+        </div>
+        <button id="docRefresh" class="button button-secondary" type="button">Rafraîchir</button>
+    </div>
+
+    <p id="docAuthStatus" class="notice" role="status" aria-live="polite"></p>
+    <p id="docStatus" class="list-status" role="status" aria-live="polite"></p>
+
+    <div class="panel" id="sharePanel" hidden>
+        <h2>Partager un fichier</h2>
+        <form id="shareForm" class="admin-form" enctype="multipart/form-data" autocomplete="off">
+            <label for="shareFile">Fichier</label>
+            <input id="shareFile" name="file" type="file" required
+                   accept=".pdf,.doc,.docx,.xls,.xlsx,.odt,.png,.jpg,.jpeg,.txt">
+            <label for="shareTitle">Titre (facultatif)</label>
+            <input id="shareTitle" name="title" maxlength="300" placeholder="Ex. Rapport du conseil national">
+            <label for="shareMessage">Court message (facultatif)</label>
+            <textarea id="shareMessage" name="message" rows="3" maxlength="500"
+                      placeholder="Ex. Voici le rapport pour la réunion de lundi."></textarea>
+            <p class="form-note">
+                Formats acceptés : PDF, Word, Excel, OpenDocument, PNG, JPG et TXT.
+                Le fichier et le message sont visibles par tous les membres autorisés du réseau FPH.
+            </p>
+            <div class="admin-actions">
+                <button class="button" type="submit">Partager</button>
+            </div>
+        </form>
+    </div>
+
+    <form id="docSearch" class="filter-form">
+        <label class="sr-only" for="docQuery">Rechercher un fichier</label>
+        <input id="docQuery" name="q" maxlength="120" placeholder="Titre, nom du fichier ou message">
+        <button class="button" type="submit">Rechercher</button>
+    </form>
+
+    <div id="docList" class="card-grid"></div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/documents.js') }}" defer></script>
+{% endblock %}

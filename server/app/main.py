@@ -7,7 +7,8 @@ from .config import settings
 from .db import Base, SessionLocal, engine
 from .models import Role, User
 from .permissions import ROLE_SEED
-from .routers import agent, audit_api, auth, churches, devices, documents, events, integrations, leaders, messages, organizations, printing, public, users
+from .routers import (agent, audit_api, auth, churches, devices, documents, events, integrations,
+                      leaders, meol, messages, organizations, print_folder, printing, public, users)
 from .security import hash_password
 
 
@@ -53,7 +54,8 @@ def create_app(create_tables: bool = False) -> FastAPI:
     for r in (auth.router, users.router, churches.router, public.router, audit_api.router,
               integrations.router, devices.router, devices.network, messages.router, documents.router,
               leaders.router, organizations.router, events.router, events.reg_router, events.inbound,
-              printing.router, printing.admin, agent.router):
+              printing.router, printing.admin, agent.router, meol.router, meol.PUBLIC,
+              print_folder.router):
         app.include_router(r)
     return app
 

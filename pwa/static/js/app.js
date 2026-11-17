@@ -1,7 +1,27 @@
 (() => {
+    const TOKEN_KEY = "fph_token";
     let accessToken = null;
+
+    function readStoredToken() {
+        try { return sessionStorage.getItem(TOKEN_KEY); } catch { return null; }
+    }
+
+    function storeToken(value) {
+        accessToken = value || null;
+        try {
+            if (accessToken) sessionStorage.setItem(TOKEN_KEY, accessToken);
+            else sessionStorage.removeItem(TOKEN_KEY);
+        } catch { /* stockage indisponible : la session reste en mémoire */ }
+    }
+
+    accessToken = readStoredToken();
     const PUBLIC_CACHE_DB = "fph-connect-pwa";
     const PUBLIC_CACHE_STORE = "public-data";
+    const ORG_TYPE_LABELS = {
+        mission: "Mission", eglise: "Église", organisation: "Organisation", ligue: "Ligue",
+        ministere: "Ministère", ecole: "École", oeuvre_sociale: "Œuvre sociale",
+        association: "Association", departement: "Département", autre: "Autre",
+    };
 
     function openPublicCache() {
         if (!("indexedDB" in window)) return Promise.resolve(null);
@@ -50,9 +70,16 @@
     const accountDetails = document.querySelector("#accountDetails");
     const logoutButton = document.querySelector("#logoutButton");
     const changePasswordForm = document.querySelector("#changePasswordForm");
+    const adminSection = document.querySelector("#adminSection");
+    const adminChurchSection = document.querySelector("#adminChurchSection");
+    const adminEventSection = document.querySelector("#adminEventSection");
     const organizationSection = document.querySelector("#organizationSection");
     const organizationPageSize = 100;
     let organizationOffset = 0;
+
+    // La console d'administration charge admin.js et n'a pas de formulaire de connexion :
+    // app.js ne doit pas s'y exécuter (sinon addEventListener sur null).
+    if (!loginForm) return;
 
     function messageText(data) {
         const detail = data && data.detail;
@@ -94,26 +121,47 @@
             setAuthMessage("Pour protéger votre compte, changez votre mot de passe avant de continuer.");
         } else {
             setAuthMessage("");
+        }
+        
+        if (user.role === "superadmin") {
+            adminSection.hidden = false;
+            adminChurchSection.hidden = false;
+            adminEventSection.hidden = false;
+            loadUsers();
+            loadAdminChurches();
+            loadAdminEvents();
+        } else {
+            adminSection.hidden = true;
+            adminChurchSection.hidden = true;
+            adminEventSection.hidden = true;
+        }
         organizationSection.hidden = false;
         organizationOffset = 0;
         loadOrganizations();
-        }
     }
 
     function showLoggedOut() {
         accessToken = null;
+        storeToken(null);
         loginForm.hidden = false;
         accountDetails.hidden = true;
         logoutButton.hidden = true;
         changePasswordForm.hidden = true;
         changePasswordForm.reset();
         document.querySelector("#accountHeading").textContent = "Connexion";
+        document.querySelector("#password").value = "";
+        adminSection.hidden = true;
+        adminChurchSection.hidden = true;
+        adminEventSection.hidden = true;
         organizationSection.hidden = true;
         document.querySelector("#organizationList").replaceChildren();
         document.querySelector("#organizationStatus").textContent = "";
         document.querySelector("#organizationPrevious").disabled = true;
         document.querySelector("#organizationNext").disabled = true;
-        document.querySelector("#password").value = "";
+        document.querySelector("#adminChurchList").replaceChildren();
+        document.querySelector("#adminChurchStatus").textContent = "";
+        document.querySelector("#adminEventList").replaceChildren();
+        document.querySelector("#adminEventStatus").textContent = "";
     }
 
     function appendText(parent, tag, text, className) {
@@ -159,6 +207,60 @@
         document.querySelector("#eventStatus").textContent =
             events.length ? `${events.length} événement(s) publié(s).` : "Aucun événement publié pour le moment.";
     }
+
+    function renderUsers(users) {
+        const list = document.querySelector("#userList");
+        list.replaceChildren();
+        for (const user of users) {
+            const card = document.createElement("article");
+            card.className = "data-card";
+            appendText(card, "h3", user.full_name);
+            appendText(card, "p", `Rôle: ${user.role}`);
+            appendText(card, "p", `Email: ${user.email}`);
+            if (user.username) appendText(card, "p", `Username: ${user.username}`);
+            list.append(card);
+        }
+        document.querySelector("#adminStatus").textContent = `${users.length} utilisateur(s) trouvé(s) dans la base.`;
+    }
+
+    function renderAdminChurches(churches) {
+        const list = document.querySelector("#adminChurchList");
+        list.replaceChildren();
+        for (const church of churches) {
+            const card = document.createElement("article");
+            card.className = "data-card";
+            appendText(card, "h3", church.official_name);
+            appendText(card, "p", [church.commune, church.department].filter(Boolean).join(", "));
+            appendText(card, "p", `Statut: ${church.validation_status} · Affiliation: ${church.affiliation_status}`);
+            if (church.contact_phone) appendText(card, "p", `Tél: ${church.contact_phone}`);
+            if (church.contact_email) appendText(card, "p", `Email: ${church.contact_email}`);
+            list.append(card);
+        }
+        document.querySelector("#adminChurchStatus").textContent =
+            churches.length ? `${churches.length} église(s) affichée(s).` : "Aucune église trouvée.";
+    }
+
+    function renderAdminEvents(events) {
+        const list = document.querySelector("#adminEventList");
+        list.replaceChildren();
+        for (const event of events) {
+            const card = document.createElement("article");
+            card.className = "data-card";
+            appendText(card, "h3", event.title);
+            const start = new Date(event.starts_at);
+            appendText(card, "p", Number.isNaN(start.getTime())
+                ? event.starts_at
+                : new Intl.DateTimeFormat("fr-HT", { dateStyle: "long", timeStyle: "short" }).format(start));
+            if (event.location) appendText(card, "p", `Lieu: ${event.location}`);
+            if (event.department) appendText(card, "p", `Département: ${event.department}`);
+            appendText(card, "p", `Statut: ${event.validation_status}`);
+            if (event.description) appendText(card, "p", event.description);
+            list.append(card);
+        }
+        document.querySelector("#adminEventStatus").textContent =
+            events.length ? `${events.length} événement(s) affiché(s).` : "Aucun événement trouvé.";
+    }
+
     function renderOrganizations(organizations) {
         const list = document.querySelector("#organizationList");
         list.replaceChildren();
@@ -169,7 +271,7 @@
             appendText(card, "p", [
                 organization.commune,
                 organization.department,
-                organization.org_type,
+                ORG_TYPE_LABELS[organization.org_type] || organization.org_type,
                 organization.validation_status,
             ].filter(Boolean).join(" · "));
             const contact = [organization.contact_phone, organization.contact_email].filter(Boolean).join(" · ");
@@ -185,7 +287,6 @@
         document.querySelector("#organizationPrevious").disabled = organizationOffset === 0;
         document.querySelector("#organizationNext").disabled = organizations.length < organizationPageSize;
     }
-
 
     async function loadChurches(query = "") {
         const status = document.querySelector("#churchStatus");
@@ -211,6 +312,39 @@
             status.textContent = error.message;
         }
     }
+
+    async function loadUsers() {
+        const status = document.querySelector("#adminStatus");
+        status.textContent = "Chargement des utilisateurs…";
+        try {
+            renderUsers(await api("/api/admin/users"));
+        } catch (error) {
+            status.textContent = error.message;
+        }
+    }
+
+    async function loadAdminChurches() {
+        const status = document.querySelector("#adminChurchStatus");
+        status.textContent = "Chargement des églises…";
+        const params = new URLSearchParams(new FormData(document.querySelector("#adminChurchSearch")));
+        try {
+            renderAdminChurches(await api(`/api/admin/churches?${params}`));
+        } catch (error) {
+            status.textContent = error.message;
+        }
+    }
+
+    async function loadAdminEvents() {
+        const status = document.querySelector("#adminEventStatus");
+        status.textContent = "Chargement des événements…";
+        const params = new URLSearchParams(new FormData(document.querySelector("#adminEventSearch")));
+        try {
+            renderAdminEvents(await api(`/api/admin/events?${params}`));
+        } catch (error) {
+            status.textContent = error.message;
+        }
+    }
+
     async function loadOrganizations() {
         const status = document.querySelector("#organizationStatus");
         status.textContent = "Chargement du registre…";
@@ -226,7 +360,6 @@
         }
     }
 
-
     loginForm.addEventListener("submit", async event => {
         event.preventDefault();
         setAuthMessage("");
@@ -241,9 +374,11 @@
                 }),
             });
             accessToken = result.access_token;
+            storeToken(result.access_token);
             showAccount(await api("/api/me"));
         } catch (error) {
             accessToken = null;
+            storeToken(null);
             setAuthMessage(error.message);
         } finally {
             submit.disabled = false;
@@ -292,6 +427,15 @@
         const form = new FormData(event.currentTarget);
         loadChurches({ q: form.get("q"), department: form.get("department") });
     });
+
+    document.querySelector("#adminChurchSearch").addEventListener("submit", event => {
+        event.preventDefault();
+        loadAdminChurches();
+    });
+    document.querySelector("#adminEventSearch").addEventListener("submit", event => {
+        event.preventDefault();
+        loadAdminEvents();
+    });
     document.querySelector("#organizationSearch").addEventListener("submit", event => {
         event.preventDefault();
         organizationOffset = 0;
@@ -306,7 +450,6 @@
         loadOrganizations();
     });
 
-
     function updateConnection() {
         const online = navigator.onLine;
         document.querySelector("#connectionStatus").textContent = online ? "En ligne" : "Hors ligne";
@@ -318,6 +461,10 @@
     updateConnection();
     loadChurches();
     loadEvents();
+
+    if (accessToken) {
+        api("/api/me").then(showAccount).catch(() => showLoggedOut());
+    }
 
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

@@ -1,5 +1,7 @@
-"""Client HTTP de l'API FPH. Le jeton n'est gardé qu'en mémoire (jamais écrit sur disque
-dans ce prototype). Aucun identifiant de base de données n'existe côté client."""
+"""Client HTTP de l'API FPH. Le jeton est sauvegardé dans le stockage local
+pour permettre la reconnexion automatique. Aucun identifiant de base de données n'existe côté client."""
+import json
+import os
 import httpx
 
 from .tls import make_verify
@@ -16,10 +18,13 @@ class NetworkError(Exception):
 
 
 class ApiClient:
-    def __init__(self, base_url: str, http=None, timeout: float = 10.0, ca_file: str | None = None):
+    def __init__(self, base_url: str, http=None, timeout: float = 10.0, ca_file: str | None = None, 
+                 storage_path: str | None = None):
         self.http = http or httpx.Client(base_url=base_url, timeout=timeout, verify=make_verify(ca_file))
         self.token: str | None = None
         self.device = None   # DeviceIdentity (facultatif)
+        self.storage_path = storage_path
+        self._load_token()
 
     def _req(self, method, path, **kw):
         headers = kw.pop("headers", {})
@@ -43,6 +48,7 @@ class ApiClient:
         data = self._req("POST", "/api/v1/auth/login",
                          json={"identifier": email, "password": password, "device_label": device_label})
         self.token = data["access_token"]
+        self._save_token()
         return data
 
     def logout(self):
@@ -50,6 +56,7 @@ class ApiClient:
             self._req("POST", "/api/v1/auth/logout")
         finally:
             self.token = None
+            self._clear_token()
 
     def me(self):
         return self._req("GET", "/api/v1/auth/me")
@@ -57,12 +64,66 @@ class ApiClient:
     def list_churches(self, limit=200, offset=0):
         return self._req("GET", "/api/v1/churches", params={"limit": limit, "offset": offset})
 
-    def create_church(self, payload: dict, op_id: str):
-        return self._req("POST", "/api/v1/churches", json=payload,
-                         headers={"Idempotency-Key": op_id})
+    def create_church(self, payload: dict, op_id: str | None = None):
+        headers = {"Idempotency-Key": op_id} if op_id else {}
+        return self._req("POST", "/api/v1/churches", json=payload, headers=headers)
 
     def update_church(self, church_id: str, payload: dict):
         return self._req("PATCH", f"/api/v1/churches/{church_id}", json=payload)
+
+    def transition_church(self, church_id: str, action: str):
+        return self._req("POST", f"/api/v1/churches/{church_id}/transition", json={"action": action})
+
+    # ---- administration (SuperAdministrateur) ----
+    def admin_users(self, limit: int = 200, offset: int = 0):
+        return self._req("GET", "/api/v1/users", params={"limit": limit, "offset": offset})
+
+    def admin_roles(self):
+        return self._req("GET", "/api/v1/users/roles")
+
+    def create_user(self, payload: dict):
+        return self._req("POST", "/api/v1/users", json=payload)
+
+    def update_user(self, uid: str, payload: dict):
+        return self._req("PATCH", f"/api/v1/users/{uid}", json=payload)
+
+    def archive_user(self, uid: str):
+        """« Supprimer » un compte = le désactiver (aucune suppression définitive côté serveur)."""
+        return self._req("DELETE", f"/api/v1/users/{uid}")
+
+    def activate_user(self, uid: str):
+        return self._req("POST", f"/api/v1/users/{uid}/activate")
+
+    def create_event(self, payload: dict):
+        return self._req("POST", "/api/v1/events", json=payload)
+
+    def update_event(self, eid: str, payload: dict):
+        return self._req("PATCH", f"/api/v1/events/{eid}", json=payload)
+
+    def transition_event(self, eid: str, action: str):
+        return self._req("POST", f"/api/v1/events/{eid}/transition", json={"action": action})
+
+    # ---- MEOL : demandes d'enregistrement (SuperAdministrateur) ----
+    def meol_pending(self, status: str = "all"):
+        return self._req("GET", "/api/v1/meol/pending", params={"status": status})
+
+    def meol_get(self, oid: str):
+        return self._req("GET", f"/api/v1/meol/{oid}")
+
+    def meol_approve(self, oid: str, reason: str | None = None):
+        return self._req("POST", f"/api/v1/meol/{oid}/approve", json={"reason": reason})
+
+    def meol_reject(self, oid: str, reason: str | None = None):
+        return self._req("POST", f"/api/v1/meol/{oid}/reject", json={"reason": reason})
+
+    def meol_register(self, payload: dict):
+        return self._req("POST", "/api/v1/public/meol/register", json=payload)
+
+    def org_transition(self, oid: str, action: str):
+        return self._req("POST", f"/api/v1/organizations/{oid}/transition", json={"action": action})
+
+    def update_org(self, oid: str, payload: dict):
+        return self._req("PATCH", f"/api/v1/organizations/{oid}", json=payload)
 
     # ---- registre MEOL (organisations affiliées) ----
     def list_organizations(self, department: str | None = None, status: str | None = None,
@@ -145,6 +206,35 @@ class ApiClient:
 
     def cancel_print_job(self, job_id: str):
         return self._req("POST", f"/api/v1/print-jobs/{job_id}/cancel")
+
+    # ---- gestion du token ----
+    def _save_token(self):
+        """Sauvegarde le token dans le stockage local."""
+        if self.storage_path and self.token:
+            try:
+                os.makedirs(os.path.dirname(self.storage_path), exist_ok=True)
+                with open(self.storage_path, 'w') as f:
+                    json.dump({'token': self.token}, f)
+            except Exception:
+                pass  # Ignorer les erreurs de sauvegarde
+
+    def _load_token(self):
+        """Charge le token depuis le stockage local."""
+        if self.storage_path and os.path.exists(self.storage_path):
+            try:
+                with open(self.storage_path, 'r') as f:
+                    data = json.load(f)
+                    self.token = data.get('token')
+            except Exception:
+                self.token = None
+
+    def _clear_token(self):
+        """Supprime le token du stockage local."""
+        if self.storage_path and os.path.exists(self.storage_path):
+            try:
+                os.remove(self.storage_path)
+            except Exception:
+                pass
 
     # ---- événements et inscriptions (personnel) ----
     def events(self):

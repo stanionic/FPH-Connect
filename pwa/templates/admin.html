@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block title %}FPH Connect — Console d'administration{% endblock %}
+{% block content %}
+<section class="hero admin-hero">
+    <p class="eyebrow">Administration</p>
+    <h1>Console SuperAdmin</h1>
+    <p>Créez, modifiez, approuvez et archivez les utilisateurs, églises, événements et MEOL.</p>
+    <p><a class="button button-secondary" href="/">← Retour au site</a></p>
+</section>
+
+<p id="adminAuthStatus" class="notice" role="status" aria-live="polite"></p>
+
+<nav class="admin-tabs" aria-label="Sections d'administration">
+    <button type="button" class="admin-tab is-active" data-tab="users">Utilisateurs</button>
+    <button type="button" class="admin-tab" data-tab="events">Événements</button>
+    <button type="button" class="admin-tab" data-tab="meols">MEOL</button>
+</nav>
+
+<p id="adminStatus" class="notice" role="status" aria-live="polite"></p>
+
+<!-- ===================== UTILISATEURS ===================== -->
+<section id="tab-users" class="admin-panel" aria-labelledby="usersHeading">
+    <div class="panel">
+        <h2 id="usersHeading">Nouvel utilisateur / modification</h2>
+        <form id="userForm" class="admin-form" data-mode="create" autocomplete="off">
+            <input type="hidden" name="id">
+            <label for="userFullName">Nom complet</label>
+            <input id="userFullName" name="full_name" required minlength="2" maxlength="200">
+            <label for="userEmail">E-mail</label>
+            <input id="userEmail" name="email" type="email" required>
+            <label for="userUsername">Pseudo (facultatif)</label>
+            <input id="userUsername" name="username" pattern="[A-Za-z0-9._-]{3,50}" placeholder="ex. jdupont">
+            <label for="userPassword">Mot de passe</label>
+            <input id="userPassword" name="password" type="password" minlength="10" placeholder="10 caractères minimum">
+            <p class="form-note" id="userPasswordHint">Obligatoire à la création ; en modification, remplir pour réinitialiser.</p>
+            <label for="userRole">Rôle</label>
+            <select id="userRole" name="role_code" required></select>
+            <label for="userDepartment">Département</label>
+            <select id="userDepartment" name="department"></select>
+            <label for="userChurch">Église de rattachement</label>
+            <select id="userChurch" name="church_id"></select>
+            <label for="userOrg">Organisation / MEOL de rattachement</label>
+            <select id="userOrg" name="organization_id"></select>
+            <label class="admin-check"><input id="userActive" name="is_active" type="checkbox" checked> Compte actif</label>
+            <fieldset class="admin-fieldset" id="userPermissionsFieldset">
+                <legend>Autorisations supplémentaires (réseau FPH)</legend>
+                <p class="form-note">Accordées par le SuperAdmin en plus des droits du rôle. Elles permettent notamment à tous les comptes de partager des fichiers.</p>
+                <label class="admin-check"><input name="extra_permissions" type="checkbox" value="document:share"> Partager des fichiers et un court message</label>
+                <label class="admin-check"><input name="extra_permissions" type="checkbox" value="document:read"> Consulter et télécharger les fichiers partagés</label>
+                <label class="admin-check"><input name="extra_permissions" type="checkbox" value="document:organize"> Classer les documents</label>
+                <label class="admin-check"><input name="extra_permissions" type="checkbox" value="print:use"> Imprimer depuis le dossier connecté</label>
+            </fieldset>
+            <div class="admin-actions">
+                <button class="button" type="submit">Créer l'utilisateur</button>
+                <button class="button button-secondary" type="button" id="userCancel">Annuler</button>
+            </div>
+        </form>
+    </div>
+    <div class="section-heading admin-list-heading">
+        <h2>Utilisateurs existants</h2>
+        <button class="button button-secondary" type="button" id="userRefresh">Rafraîchir</button>
+    </div>
+    <p id="userStatus" class="list-status" role="status" aria-live="polite"></p>
+    <div id="userList" class="card-grid"></div>
+</section>
+
+<!-- ===================== ÉVÉNEMENTS ===================== -->
+<section id="tab-events" class="admin-panel" aria-labelledby="eventsHeading" hidden>
+    <div class="panel">
+        <h2 id="eventsHeading">Nouvel événement / modification</h2>
+        <form id="eventForm" class="admin-form" data-mode="create" autocomplete="off">
+            <input type="hidden" name="id">
+            <input type="hidden" name="version">
+            <label for="eventTitle">Titre</label>
+            <input id="eventTitle" name="title" required minlength="3" maxlength="250">
+            <label for="eventDescription">Description</label>
+            <textarea id="eventDescription" name="description" rows="3" maxlength="5000"></textarea>
+            <label for="eventStarts">Début</label>
+            <input id="eventStarts" name="starts_at" type="datetime-local" required>
+            <label for="eventEnds">Fin</label>
+            <input id="eventEnds" name="ends_at" type="datetime-local">
+            <label for="eventLocation">Lieu</label>
+            <input id="eventLocation" name="location" maxlength="300">
+            <label for="eventDepartment">Département</label>
+            <select id="eventDepartment" name="department"></select>
+            <label for="eventCapacity">Capacité (facultatif)</label>
+            <input id="eventCapacity" name="capacity" type="number" min="1" max="100000">
+            <div class="admin-actions">
+                <button class="button" type="submit">Créer l'événement</button>
+                <button class="button button-secondary" type="button" id="eventCancel">Annuler</button>
+            </div>
+        </form>
+    </div>
+    <div class="section-heading admin-list-heading">
+        <h2>Événements existants</h2>
+        <button class="button button-secondary" type="button" id="eventRefresh">Rafraîchir</button>
+    </div>
+    <p id="eventStatus" class="list-status" role="status" aria-live="polite"></p>
+    <div id="eventList" class="card-grid"></div>
+</section>
+
+<!-- ===================== MEOL ===================== -->
+<section id="tab-meols" class="admin-panel" aria-labelledby="meolsHeading" hidden>
+    <div class="panel">
+        <h2 id="meolsHeading">Nouveau MEOL / modification</h2>
+        <form id="meolForm" class="admin-form" data-mode="create" autocomplete="off">
+            <input type="hidden" name="id">
+            <input type="hidden" name="version">
+            <label for="meolName">Nom du MEOL</label>
+            <input id="meolName" name="name" required minlength="2" maxlength="250">
+            <label for="meolType">Catégorie</label>
+            <select id="meolType" name="org_type" required>
+                <option value="mission">Mission</option>
+                <option value="eglise">Église</option>
+                <option value="organisation">Organisation</option>
+                <option value="ligue">Ligue</option>
+            </select>
+            <label for="meolDepartment">Département</label>
+            <select id="meolDepartment" name="department" required></select>
+            <label for="meolCommune">Commune</label>
+            <input id="meolCommune" name="commune" maxlength="100">
+            <label for="meolAddress">Adresse</label>
+            <input id="meolAddress" name="address" maxlength="2000">
+            <label for="meolEmail">E-mail de contact</label>
+            <input id="meolEmail" name="contact_email" type="email">
+            <label for="meolPhone">Téléphone de contact</label>
+            <input id="meolPhone" name="contact_phone" maxlength="50">
+            <fieldset id="meolLeaderFields" class="admin-fieldset">
+                <legend>Responsable (création uniquement)</legend>
+                <label for="meolLeaderName">Nom du responsable</label>
+                <input id="meolLeaderName" name="leader_full_name" maxlength="200">
+                <label for="meolLeaderFunction">Fonction</label>
+                <select id="meolLeaderFunction" name="leader_function"></select>
+                <label for="meolLeaderPhone">Téléphone professionnel</label>
+                <input id="meolLeaderPhone" name="leader_phone" maxlength="50">
+                <label for="meolLeaderEmail">E-mail professionnel</label>
+                <input id="meolLeaderEmail" name="leader_email" type="email">
+            </fieldset>
+            <fieldset id="meolProgramFields" class="admin-fieldset">
+                <legend>Programmes annuels (création)</legend>
+                <label for="meolPrograms">Une ligne par programme : <code>année | titre | description</code></label>
+                <textarea id="meolPrograms" name="programs" rows="3" placeholder="2026 | Évangélisation | Campagnes de quartier"></textarea>
+            </fieldset>
+            <div class="admin-actions">
+                <button class="button" type="submit">Créer le MEOL</button>
+                <button class="button button-secondary" type="button" id="meolCancel">Annuler</button>
+            </div>
+        </form>
+        <form id="meolProgramForm" class="admin-form" hidden>
+            <h3>Ajouter un programme annuel</h3>
+            <input type="hidden" name="id">
+            <label for="programYear">Année</label>
+            <input id="programYear" name="year" type="number" min="2000" max="2100" required>
+            <label for="programTitle">Titre</label>
+            <input id="programTitle" name="title" required minlength="2" maxlength="200">
+            <label for="programDescription">Description</label>
+            <textarea id="programDescription" name="description" rows="2" maxlength="4000"></textarea>
+            <div class="admin-actions">
+                <button class="button" type="submit">Ajouter le programme</button>
+            </div>
+        </form>
+    </div>
+    <div class="section-heading admin-list-heading">
+        <h2>MEOL enregistrés</h2>
+        <div class="admin-actions">
+            <label class="sr-only" for="meolFilter">Statut</label>
+            <select id="meolFilter">
+                <option value="all">Tous les statuts</option>
+                <option value="pending" selected>En attente d'approbation</option>
+                <option value="approved">Approuvés</option>
+                <option value="draft">Brouillons</option>
+                <option value="archived">Archivés</option>
+            </select>
+            <button class="button button-secondary" type="button" id="meolRefresh">Rafraîchir</button>
+        </div>
+    </div>
+    <p id="meolStatus" class="list-status" role="status" aria-live="polite"></p>
+    <div id="meolList" class="card-grid"></div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/admin.js') }}" defer></script>
+{% endblock %}

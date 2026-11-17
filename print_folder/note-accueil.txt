@@ -1,0 +1,9 @@
+FPH Connect — dossier d'impression
+=================================
+
+1. Connectez-vous sur la page d'accueil du PWA.
+2. Ouvrez « Impression » dans le menu.
+3. Choisissez « Imprimer » : le document s'ouvre et la boîte de dialogue
+   d'impression du navigateur ou du système s'affiche.
+
+Chaque impression est enregistrée dans le journal d'audit.

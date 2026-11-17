@@ -3,6 +3,21 @@ from fastapi import HTTPException
 
 LAN_STAFF = ["message:send", "device:register", "document:share", "document:read", "print:use"]
 ADMIN_EXTRA = ["integration:manage", "message:broadcast", "device:manage", "document:organize", "print:manage"]
+
+# Droits que le SuperAdmin peut accorder nommément à un utilisateur, en plus de son rôle.
+# Le partage de fichiers est ainsi ouvert à tous les comptes, sur décision du SuperAdmin.
+SHAREABLE_PERMISSIONS = [
+    {"code": "document:share", "label": "Partager des fichiers",
+     "description": "Déposer des fichiers et un court message sur le réseau FPH."},
+    {"code": "document:read", "label": "Consulter les fichiers partagés",
+     "description": "Voir et télécharger les fichiers partagés sur le réseau FPH."},
+    {"code": "document:organize", "label": "Classer les documents",
+     "description": "Classer les fichiers déposés dans la bibliothèque institutionnelle."},
+    {"code": "print:use", "label": "Imprimer",
+     "description": "Imprimer depuis le dossier connecté du serveur."},
+]
+SHAREABLE_CODES = [item["code"] for item in SHAREABLE_PERMISSIONS]
+
 # Base institutionnelle : lecture/écriture par entité, circuit de validation partagé (organisations, événements)
 FULL_INST = ["leader:read", "leader:write", "org:read", "org:write", "event:read", "event:write",
              "registration:manage", "workflow:submit", "workflow:approve", "workflow:publish",
@@ -29,11 +44,14 @@ ROLE_SEED = [
 ]
 
 ORG_TYPES = ["ministere", "ecole", "oeuvre_sociale", "association", "departement", "autre"]
+# Catégories d'enregistrement MEOL : Mission, Eglise, Organisation, Ligue.
+MEOL_TYPES = ["mission", "eglise", "organisation", "ligue"]
+ORG_TYPES = ORG_TYPES + [t for t in MEOL_TYPES if t not in ORG_TYPES]
 LEADER_FUNCTIONS = ["pasteur_principal", "pasteur_assistant", "responsable_principal", "president",
                     "secretaire", "tresorier", "responsable_service", "autre"]
 
 DEPARTMENTS = ["Ouest", "Nord", "Nord-Est", "Nord-Ouest", "Artibonite", "Centre",
-               "Sud", "Sud-Est", "Grand'Anse", "Nippes"]
+               "Sud", "Sud-Est", "Grand'Anse", "Nippes", "La Diaspora"]
 
 # Reprise du registre MEOL : quand aucun texte de la fiche ne désigne un département, la source dit
 # « à déterminer ». L'API doit accepter cette valeur, sinon la seule façon de créer la fiche est
@@ -43,8 +61,18 @@ DEPARTMENTS = ["Ouest", "Nord", "Nord-Est", "Nord-Ouest", "Artibonite", "Centre"
 DEPARTMENT_UNKNOWN = "À déterminer"
 
 
+def effective_permissions(user) -> list[str]:
+    """Permissions effectives : celles du rôle, complétées par les droits accordés
+    nommément par le SuperAdmin (sans doublon, ordre stable)."""
+    result: list[str] = []
+    for perm in list(user.role.permissions or []) + list(user.extra_permissions or []):
+        if perm not in result:
+            result.append(perm)
+    return result
+
+
 def has_permission(user, perm: str) -> bool:
-    return user.is_active and perm in (user.role.permissions or [])
+    return user.is_active and perm in effective_permissions(user)
 
 
 def in_scope(user, church) -> bool:

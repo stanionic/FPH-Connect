@@ -44,7 +44,10 @@ def _item_out(i: InboxItem) -> dict:
 def _doc_out(d: Document) -> dict:
     return {"id": d.id, "title": d.title, "doc_type": d.doc_type, "church_id": d.church_id,
             "original_name": d.original_name, "size": d.size, "mime": d.mime,
-            "batch_id": d.batch_id, "created_at": d.created_at.isoformat()}
+            "batch_id": d.batch_id, "created_at": d.created_at.isoformat(),
+            "visibility": d.visibility, "share_note": d.share_note,
+            "uploaded_by": d.uploaded_by,
+            "shared": d.visibility == "network"}
 
 
 def _can_see_item(db: Session, user: User, item: InboxItem) -> bool:
@@ -66,6 +69,8 @@ def _visible_items(db: Session, user: User, status: str | None = None) -> list[I
 
 
 def _can_read_doc(db: Session, user: User, d: Document) -> bool:
+    if d.visibility == "network":          # partagé à tout le réseau FPH
+        return True
     if d.church_id is None:
         return _is_national(user)
     c = db.get(Church, d.church_id)
@@ -313,6 +318,92 @@ def delete_staged(item_id: str, request: Request, user: User = Depends(require("
     audit(db, user.id, "document.staged_deleted", "inbox", item.id, request_id=request_id(request))
     db.delete(item)
     db.commit()
+
+
+# ---------- partage réseau (tous les utilisateurs autorisés) ----------
+@router.post("/share", status_code=201)
+async def share_file(response: Response, request: Request, file: UploadFile = File(...),
+                     title: str | None = Form(default=None),
+                     message: str | None = Form(default=None),
+                     user: User = Depends(require("document:share")),
+                     db: Session = Depends(get_db)):
+    """Partage direct d'un fichier à tout le réseau FPH, avec un court message.
+
+    Contrairement au dépôt en zone tampon, ce partage ne dépend pas d'un appareil
+    enregistré : il est donc utilisable depuis le PWA. Le fichier devient lisible par
+    tout compte disposant de `document:read` (autorisation accordée par le SuperAdmin).
+    """
+    name = fs.clean_filename(file.filename or "")
+    limit = settings.max_upload_mb * 1024 * 1024
+    doc_id = new_id()
+    tmp = fs.safe_path("inbox", f"{doc_id}.part")
+    tmp.parent.mkdir(parents=True, exist_ok=True)
+    h, size, head = hashlib.sha256(), 0, b""
+    try:
+        with open(tmp, "wb") as out:
+            while chunk := await file.read(1024 * 1024):
+                if not head:
+                    head = chunk[:4096]
+                    try:
+                        fs.check_type(name, head)
+                    except ValueError as e:
+                        raise HTTPException(422, str(e))
+                size += len(chunk)
+                if size > limit:
+                    raise HTTPException(413, f"Fichier trop volumineux (max {settings.max_upload_mb} Mo)")
+                h.update(chunk)
+                out.write(chunk)
+        if size == 0:
+            raise HTTPException(422, "Fichier vide")
+        _, mime = fs.check_type(name, head)
+    except Exception:
+        tmp.unlink(missing_ok=True)
+        raise
+    digest = h.hexdigest()
+    previous = db.scalar(select(Document).where(Document.sha256 == digest))
+    if previous is not None:
+        tmp.unlink(missing_ok=True)
+        if previous.visibility == "network":
+            response.status_code = 200
+            return _doc_out(previous)
+        raise HTTPException(409, "Ce fichier existe déjà dans la bibliothèque institutionnelle")
+    note = (message or "").strip()[:500] or None
+    doc = Document(id=doc_id, title=(title or "").strip()[:300] or _title_from(name),
+                   doc_type=fs.SHARED_DOC_TYPE, church_id=None, original_name=name,
+                   mime=mime, size=size, sha256=digest, storage_path="",
+                   uploaded_by=user.id, visibility="network", share_note=note)
+    dst = fs.library_path(fs.SHARED_DOC_TYPE, None,
+                          datetime.now(timezone.utc).year, doc_id)
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.move(str(tmp), str(dst))
+    doc.storage_path = str(dst.relative_to(fs.root()))
+    db.add(doc)
+    audit(db, user.id, "document.shared", "document", doc_id,
+          {"name": name, "size": size, "message": bool(note)}, request_id(request))
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        dst.unlink(missing_ok=True)
+        raise HTTPException(409, "Ce fichier vient d'être partagé par un autre utilisateur")
+    return _doc_out(doc)
+
+
+@router.delete("/{doc_id}", status_code=204)
+def unshare_file(doc_id: str, request: Request, user: User = Depends(require("document:read")),
+                 db: Session = Depends(get_db)):
+    """Retire un fichier du partage réseau. Réservé à son auteur ou au SuperAdmin."""
+    d = db.get(Document, doc_id)
+    if d is None or d.visibility != "network":
+        raise HTTPException(404, "Fichier partagé introuvable")
+    if d.uploaded_by != user.id and user.role.code != "superadmin":
+        raise HTTPException(403, "Seul l'auteur ou le SuperAdmin peut retirer ce partage")
+    fs.safe_path(d.storage_path).unlink(missing_ok=True)
+    audit(db, user.id, "document.unshared", "document", d.id,
+          {"name": d.original_name}, request_id=request_id(request))
+    db.delete(d)
+    db.commit()
+    return Response(status_code=204)
 
 
 # ---------- bibliothèque (base classée) ----------

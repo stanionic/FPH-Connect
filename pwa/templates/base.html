@@ -7,17 +7,23 @@
     <meta name="description" content="Annuaire des églises et événements de la Fédération Protestante d'Haïti.">
     <title>{% block title %}FPH Connect{% endblock %}</title>
     <link rel="manifest" href="{{ url_for('manifest') }}">
-    <link rel="icon" href="{{ url_for('static', filename='icons/icon.svg') }}" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon.svg') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-192.png') }}" type="image/png" sizes="192x192">
+    <link rel="icon" href="{{ url_for('static', filename='icons/icon-512.png') }}" type="image/png" sizes="512x512">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/apple-touch-icon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block head %}{% endblock %}
 </head>
 <body>
     <header class="site-header">
         <a class="brand" href="/" aria-label="FPH Connect, accueil">
-            <img src="{{ url_for('static', filename='icons/icon.svg') }}" alt="" width="42" height="42">
+            <img src="{{ url_for('static', filename='icons/icon-192.png') }}" alt="Logo de la Fédération Protestante d'Haïti" width="42" height="42">
             <span>FPH <strong>Connect</strong></span>
         </a>
+        <nav class="site-nav" aria-label="Navigation principale">
+            <a href="/">Accueil</a>
+            <a href="/partage">Partage</a>
+            <a href="/impression">Impression</a>
+        </nav>
         <span class="connection-status" id="connectionStatus" role="status">En ligne</span>
     </header>
     <main>

@@ -102,6 +102,7 @@ def create(body: OrgCreate, request: Request, user: User = Depends(require("org:
 
 @router.get("")
 def list_orgs(department: str | None = None, status: str | None = None,
+              org_type: str | None = None,
               q: str | None = Query(default=None, max_length=100),
               limit: int = Query(default=50, ge=1, le=200), offset: int = Query(default=0, ge=0),
               user: User = Depends(require("org:read")), db: Session = Depends(get_db)):
@@ -110,6 +111,8 @@ def list_orgs(department: str | None = None, status: str | None = None,
         stmt = stmt.where(Organization.department == department)
     if status:
         stmt = stmt.where(Organization.validation_status == status)
+    if org_type:
+        stmt = stmt.where(Organization.org_type == org_type)
     if q:
         stmt = stmt.where(func.lower(Organization.name).like(f"%{q.lower()}%"))
     rows = [o for o in db.scalars(stmt) if in_scope_org(user, o)]

@@ -1,11 +1,19 @@
-const CACHE_NAME = "fph-connect-shell-v1";
+const CACHE_NAME = "fph-connect-shell-v6";
 const APP_SHELL = [
     "/",
+    "/admin",
+    "/impression",
+    "/partage",
     "/offline",
     "/manifest.webmanifest",
     "/static/css/style.css",
     "/static/js/app.js",
-    "/static/icons/icon.svg",
+    "/static/js/admin.js",
+    "/static/js/print.js",
+    "/static/js/documents.js",
+    "/static/icons/icon-192.png",
+    "/static/icons/icon-512.png",
+    "/static/icons/apple-touch-icon.png",
 ];
 
 self.addEventListener("install", event => {

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}FPH Connect — Impression depuis le dossier connecté{% endblock %}
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">Espace membre</p>
+    <h1>Impression depuis le dossier connecté</h1>
+    <p>Choisissez un document partagé par la FPH. Il s'ouvre sur cet appareil et s'imprime avec la boîte de dialogue du navigateur ou du système — aucune imprimante réseau n'est requise.</p>
+</section>
+
+<section class="content-section" aria-labelledby="printHeading">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Documents disponibles</p>
+            <h2 id="printHeading">Dossier connecté</h2>
+        </div>
+        <button id="printRefresh" class="button button-secondary" type="button">Rafraîchir</button>
+    </div>
+
+    <p id="printAuthStatus" class="notice" role="status" aria-live="polite"></p>
+
+    <form id="printSearch" class="filter-form">
+        <label class="sr-only" for="printQuery">Rechercher un document</label>
+        <input id="printQuery" name="q" maxlength="100" placeholder="Nom du document">
+        <button class="button" type="submit">Rechercher</button>
+    </form>
+
+    <p id="printStatus" class="list-status" role="status" aria-live="polite"></p>
+    <div id="printList" class="card-grid"></div>
+
+    <p class="form-note">
+        Formats acceptés : PDF, PNG, JPG, TXT et HTML. L'impression est tracée dans le journal d'audit.
+        Pour un PDF, le lecteur intégré au navigateur ouvre sa propre boîte de dialogue d'impression.
+    </p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/print.js') }}" defer></script>
+{% endblock %}

@@ -1,4 +1,9 @@
 services:
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes: [redisdata:/data]
+    # Aucun port publié : Redis n'est joignable que par le serveur.
   db:
     image: postgres:16
     environment:
@@ -13,10 +18,14 @@ services:
     environment:
       FPH_DATABASE_URL: postgresql+psycopg://fph:${POSTGRES_PASSWORD}@db:5432/fph
       FPH_STORAGE_DIR: /data/storage
+      FPH_REDIS_URL: redis://redis:6379/0
+      FPH_REDIS_ENABLED: 1
     # TLS : monter le dossier des certificats et définir FPH_TLS_CERT/FPH_TLS_KEY dans .env
     #   (ex. FPH_TLS_CERT=/certs/server.pem). Voir docs/TLS_GUIDE.md
     volumes: [storage:/data/storage, "./certs:/certs:ro"]
-    depends_on: [db]
+    depends_on:
+      - db
+      - redis
     # Réseau local : remplacer par "0.0.0.0:8000:8000" ET placer un proxy TLS devant (voir docs/LAN_GUIDE.md)
     ports: ["127.0.0.1:8000:8000"]
   pwa:
@@ -41,5 +50,6 @@ services:
     network_mode: host     # le broadcast UDP ne traverse pas le réseau Docker en mode bridge
     profiles: ["local"]
 volumes:
+  redisdata:
   pgdata:
   storage:

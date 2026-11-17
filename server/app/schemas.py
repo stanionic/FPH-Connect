@@ -35,6 +35,7 @@ class UserOut(BaseModel):
     organization_id: str | None = None
     is_active: bool
     permissions: list[str]
+    extra_permissions: list[str] = []
 
 
 class UserCreate(BaseModel):
@@ -46,6 +47,8 @@ class UserCreate(BaseModel):
     department: str | None = None
     church_id: str | None = None
     organization_id: str | None = None
+    # Droits accordés par le SuperAdmin dès la création (facultatif).
+    extra_permissions: list[str] = Field(default_factory=list)
 
 
 class PasswordChange(BaseModel):

@@ -23,6 +23,31 @@ L'expéditeur peut aussi **indiquer** le type et l'église, ce qui prime.
 Un responsable départemental ne classe que dans son département ; le classement « national »
 (sans église) est réservé aux administrateurs nationaux.
 
+## Partage direct au réseau FPH (PWA)
+En plus de la zone tampon, un utilisateur autorisé peut **partager directement** un fichier avec un
+**court message** (500 caractères maximum) depuis la page `/partage` du PWA :
+
+- `POST /api/v1/documents/share` (multipart : `file`, `title`, `message`) ;
+- le fichier est marqué `visibility = network` : tout compte disposant de `document:read` peut le voir
+  et le télécharger, quel que soit son département ou son église ;
+- l'auteur (ou le SuperAdmin) peut le retirer du partage (`DELETE /api/v1/documents/{id}`) ;
+- chaque partage et retrait est journalisé (`document.shared`, `document.unshared`).
+
+Le partage ne dépend pas d'un appareil approuvé, contrairement à la zone tampon : il fonctionne donc
+depuis un simple navigateur. La taille maximale suit `FPH_MAX_UPLOAD_MB` (20 Mo par défaut).
+
+### Autorisations accordées par le SuperAdmin
+Les droits `document:share`, `document:read`, `document:organize` et `print:use` peuvent être accordés
+**nommément** à n'importe quel compte, en plus des droits de son rôle :
+
+- `GET /api/v1/users/permissions/catalog` : catalogue des droits accordables ;
+- `PUT /api/v1/users/{id}/permissions` : remplace les droits nominaux (SuperAdmin uniquement) ;
+- `PATCH /api/v1/users/{id}` accepte aussi `extra_permissions` ;
+- la réponse utilisateur expose `permissions` (effectives) et `extra_permissions` (nominaux).
+
+Dans la console `/admin`, ces cases se trouvent dans le formulaire utilisateur
+(« Autorisations supplémentaires ») ; le client Kivy propose les mêmes cases.
+
 ## Limites réelles
 - **Les PDF ne sont pas lus** (pas d'extraction de texte, pas d'OCR) : leur classement repose sur le nom du fichier.
   Un scan nommé `scan001.pdf` ira en « à vérifier ».

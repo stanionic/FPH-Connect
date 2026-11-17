@@ -21,7 +21,7 @@
         <label for="password">Mot de passe</label>
         <input id="password" name="password" type="password" autocomplete="current-password" required>
         <button class="button" type="submit">Se connecter</button>
-        <p class="form-note">Votre session reste en mémoire uniquement. Les données privées ne sont pas enregistrées hors ligne.</p>
+        <p class="form-note">Votre session reste ouverte dans cet onglet. Les données privées ne sont pas enregistrées hors ligne.</p>
     </form>
     <div id="accountDetails" hidden>
         <p id="welcomeMessage" class="welcome-message"></p>
@@ -37,6 +37,76 @@
     <p id="authMessage" class="notice" role="status" aria-live="polite"></p>
 </section>
 
+<section id="adminSection" class="content-section" aria-labelledby="adminHeading" hidden>
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Administration</p>
+            <h2 id="adminHeading">Utilisateurs du système</h2>
+        </div>
+        <a class="button" href="/admin">Ouvrir la console CRUD</a>
+    </div>
+    <p id="adminStatus" class="list-status" role="status" aria-live="polite"></p>
+    <div id="userList" class="card-grid"></div>
+</section>
+
+<section id="adminChurchSection" class="content-section" aria-labelledby="adminChurchHeading" hidden>
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Administration — Base de données</p>
+            <h2 id="adminChurchHeading">Toutes les églises</h2>
+        </div>
+    </div>
+    <p id="adminChurchStatus" class="list-status" role="status" aria-live="polite"></p>
+    <form id="adminChurchSearch" class="filter-form">
+        <label class="sr-only" for="adminChurchQuery">Rechercher une église ou une commune</label>
+        <input id="adminChurchQuery" name="q" maxlength="100" placeholder="Église ou commune">
+        <label class="sr-only" for="adminChurchDepartment">Département</label>
+        <select id="adminChurchDepartment" name="department">
+            <option value="">Tous les départements</option>
+            <option>Artibonite</option><option>Centre</option><option>Grand'Anse</option>
+            <option>La Diaspora</option>
+            <option>Nippes</option><option>Nord</option><option>Nord-Est</option>
+            <option>Nord-Ouest</option><option>Ouest</option><option>Sud</option><option>Sud-Est</option>
+        </select>
+        <label class="sr-only" for="adminChurchStatus">Statut de validation</label>
+        <select id="adminChurchStatus" name="status">
+            <option value="">Tous les statuts</option>
+            <option>draft</option><option>pending</option><option>approved</option>
+            <option>published</option><option>withdrawn</option><option>archived</option>
+        </select>
+        <button class="button" type="submit">Rechercher</button>
+    </form>
+    <div id="adminChurchList" class="card-grid"></div>
+</section>
+
+<section id="adminEventSection" class="content-section" aria-labelledby="adminEventHeading" hidden>
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Administration — Base de données</p>
+            <h2 id="adminEventHeading">Tous les événements</h2>
+        </div>
+    </div>
+    <p id="adminEventStatus" class="list-status" role="status" aria-live="polite"></p>
+    <form id="adminEventSearch" class="filter-form">
+        <label class="sr-only" for="adminEventDepartment">Département</label>
+        <select id="adminEventDepartment" name="department">
+            <option value="">Tous les départements</option>
+            <option>Artibonite</option><option>Centre</option><option>Grand'Anse</option>
+            <option>La Diaspora</option>
+            <option>Nippes</option><option>Nord</option><option>Nord-Est</option>
+            <option>Nord-Ouest</option><option>Ouest</option><option>Sud</option><option>Sud-Est</option>
+        </select>
+        <label class="sr-only" for="adminEventStatus">Statut de validation</label>
+        <select id="adminEventStatus" name="status">
+            <option value="">Tous les statuts</option>
+            <option>draft</option><option>pending</option><option>approved</option>
+            <option>published</option><option>withdrawn</option><option>archived</option>
+        </select>
+        <button class="button" type="submit">Rechercher</button>
+    </form>
+    <div id="adminEventList" class="card-grid"></div>
+</section>
+
 <section id="organizationSection" class="content-section" aria-labelledby="organizationHeading" hidden>
     <div class="section-heading">
         <div>
@@ -45,13 +115,22 @@
         </div>
     </div>
     <p>Les fiches affichées sont celles que votre compte est autorisé à consulter.</p>
-    <form id="organizationSearch" class="filter-form">
+    <form id="organizationSearch" class="filter-form filter-form--four">
         <label class="sr-only" for="organizationQuery">Rechercher une organisation</label>
         <input id="organizationQuery" name="q" maxlength="100" placeholder="Organisation">
+        <label class="sr-only" for="organizationType">Catégorie</label>
+        <select id="organizationType" name="org_type">
+            <option value="">Toutes les catégories</option>
+            <option value="mission">Mission</option>
+            <option value="eglise">Église</option>
+            <option value="organisation">Organisation</option>
+            <option value="ligue">Ligue</option>
+        </select>
         <label class="sr-only" for="organizationDepartment">Département</label>
         <select id="organizationDepartment" name="department">
             <option value="">Tous les départements</option>
             <option>Artibonite</option><option>Centre</option><option>Grand'Anse</option>
+            <option>La Diaspora</option>
             <option>Nippes</option><option>Nord</option><option>Nord-Est</option>
             <option>Nord-Ouest</option><option>Ouest</option><option>Sud</option><option>Sud-Est</option>
             <option>À déterminer</option>
@@ -65,6 +144,7 @@
         <button id="organizationNext" class="button button-secondary" type="button" disabled>Suivant</button>
     </div>
 </section>
+
 <section class="content-section" aria-labelledby="churchHeading">
     <div class="section-heading">
         <div>
@@ -79,6 +159,7 @@
         <select id="churchDepartment" name="department">
             <option value="">Tous les départements</option>
             <option>Artibonite</option><option>Centre</option><option>Grand'Anse</option>
+            <option>La Diaspora</option>
             <option>Nippes</option><option>Nord</option><option>Nord-Est</option>
             <option>Nord-Ouest</option><option>Ouest</option><option>Sud</option><option>Sud-Est</option>
         </select>

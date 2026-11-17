@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from sqlalchemy import or_, select
+from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
 from ..audit import audit
@@ -17,11 +17,13 @@ router = APIRouter(prefix="/api/v1/auth", tags=["Authentification"])
 
 
 def user_out(u: User) -> UserOut:
+    from ..permissions import effective_permissions
     return UserOut(id=u.id, email=u.email, username=u.username,
                    must_change_password=u.must_change_password, full_name=u.full_name, role=u.role.code,
                    department=u.department, church_id=u.church_id,
                    organization_id=u.organization_id, is_active=u.is_active,
-                   permissions=u.role.permissions or [])
+                   permissions=effective_permissions(u),
+                   extra_permissions=list(u.extra_permissions or []))
 
 
 def _aware(dt):
@@ -35,7 +37,8 @@ def login(body: LoginIn, request: Request, db: Session = Depends(get_db)):
     if not email:
         raise HTTPException(422, "Identifiant requis")
     ip = request.client.host if request.client else None
-    user = db.scalar(select(User).where(or_(User.email == email, User.username == email)))
+    user = db.scalar(select(User).where(or_(func.lower(User.email) == email.lower(),
+                                            func.lower(User.username) == email.lower())))
     generic = HTTPException(401, "Identifiants invalides")
 
     if user and user.locked_until and _aware(user.locked_until) > now():
